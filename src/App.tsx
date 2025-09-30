@@ -1,14 +1,7 @@
-import './App.css'
+import { AppRouter } from './app/routes';
 
 function App() {
-	return (
-		<>
-			<div>
-				<p>LF236 - Full Stack Web Developer</p>
-				<small>Build bills project</small>
-			</div>
-		</>
-	)
+	return <AppRouter />
 }
 
 export default App
