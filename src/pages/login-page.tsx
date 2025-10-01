@@ -1,5 +1,6 @@
 import { LoginForm } from "../features/auth/components/LoginForm"
 import { AuthLayout } from "../features/auth/layouts/AuthLayout"
+import { TextField } from "../features/common/components/Fields"
 
 export const LoginPage = () => {
     return(
@@ -15,7 +16,25 @@ export const LoginPage = () => {
                 </>
             }
         >
-            <LoginForm />
+            <form>
+        <div className="space-y-6">
+          <TextField
+            label="Email address"
+            name="email"
+            type="email"
+            autoComplete="email"
+            required
+          />
+          <TextField
+            label="Password"
+            name="password"
+            type="password"
+            autoComplete="current-password"
+            required
+          />
+        </div>
+        
+      </form>
         </AuthLayout>
     )
 }
