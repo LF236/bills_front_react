@@ -3,7 +3,6 @@
 @tailwind utilities;
 @plugin '@tailwindcss/forms';
 
-
 @theme {
   --text-*: initial;
   --text-xs: 0.75rem;
@@ -55,7 +54,8 @@
   --color-gray-900: oklch(0.205 0 0);
   --color-gray-950: oklch(0.145 0 0);
 
-  --font-sans: var(--font-inter);
+  --font-sans: Inter, sans-serif;
+  --font-sans--font-feature-settings: 'cv11';
 
   --container-2xl: 40rem;
 
