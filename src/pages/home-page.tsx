@@ -1,7 +1,9 @@
+import { Input } from "../features/common/components/input";
+
 export function HomePage() {
     return(
         <div>
-            HOMEPAGE
+            <Input name="full_name" invalid={true}/>
         </div>
     );
 }

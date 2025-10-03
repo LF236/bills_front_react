@@ -31,7 +31,7 @@ export const AuthLayout = ({
 					)}
 				</div>
 
-				<div className="-mx-4 mt-10 flex-auto bg-white px-4 py-10 shadow-2xl shadow-gray-900/10 sm:mx-0 sm:flex-none sm:rounded-5xl sm:p-24">
+				<div className="-mx-4 mt-10 flex-auto px-4 py-10 shadow-2xl shadow-gray-900/10 sm:mx-0 sm:flex-none sm:rounded-5xl sm:p-24">
 					{children}
 				</div>
 			</div>

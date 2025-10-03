@@ -3,6 +3,7 @@ import { PublicLayout } from "../../features/common/components/layout/PublicLayo
 
 export function PublicRoute() {
     const isAuthenticated = false;
+    
     return(
         <PublicLayout>
             <Outlet />

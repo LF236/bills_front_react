@@ -1,8 +1,13 @@
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { PrivateLayout } from "../../features/common/components/layout/PrivateLayout";
+import { useAuth } from "../../features/auth/hooks/useAuth";
 
 export function PrivateRoute() {
-    const isAuthenticated = true;
+    const { isAuthenticated } = useAuth();
+
+    if(!isAuthenticated) {
+        return <Navigate to ='/landing' replace/>
+    }
 
     return(
         <PrivateLayout>

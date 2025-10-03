@@ -167,14 +167,31 @@ type ButtonProps = (
 		| ({ href: string } & Omit<React.ComponentPropsWithoutRef<typeof Link>, 'className'>)
 	)
 
+export function TouchTarget({ children }: { children: React.ReactNode }) {
+	return (
+		<>
+			<span
+				className="absolute top-1/2 left-1/2 w-[max(100%,2.75rem)] h-[max(100%,2.75rem)] -translate-x-1/2 -translate-y-1/2 pointer-fine:hidden"
+				aria-hidden="true"
+			/>
+			{children}
+		</>
+	)
+}
+
 export const Button = forwardRef(function Button(
 	{ color, outline, plain, className, children, ...props }: ButtonProps,
 	ref: React.ForwardedRef<HTMLElement>
 ) {
-	let classes = clsx(
+	const classes = clsx(
 		className,
 		styles.base,
-		outline ? styles.outline : plain ? styles.plain : clsx(styles.solid, styles.colors[color ?? 'dark/zinc'])
+		outline
+			? styles.outline
+			: plain
+				? styles.plain
+				: clsx(styles.solid, styles.colors[color ?? 'dark/zinc']),
+		typeof props.href !== 'string' && 'cursor-default'
 	)
 
 	return typeof props.href === 'string' ? (
@@ -182,23 +199,9 @@ export const Button = forwardRef(function Button(
 			<TouchTarget>{children}</TouchTarget>
 		</Link>
 	) : (
-		<Headless.Button {...props} className={clsx(classes, 'cursor-default')} ref={ref}>
+		<Headless.Button {...props} className={classes} ref={ref}>
 			<TouchTarget>{children}</TouchTarget>
 		</Headless.Button>
 	)
 })
 
-/**
- * Expand the hit area to at least 44×44px on touch devices
- */
-export function TouchTarget({ children }: { children: React.ReactNode }) {
-	return (
-		<>
-			<span
-				className="absolute top-1/2 left-1/2 size-[max(100%,2.75rem)] -translate-x-1/2 -translate-y-1/2 pointer-fine:hidden"
-				aria-hidden="true"
-			/>
-			{children}
-		</>
-	)
-}
