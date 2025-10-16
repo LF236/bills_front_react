@@ -1,9 +1,9 @@
 import { Navigate } from "react-router-dom";
+import { useAuth } from "../../features/auth/hooks/useAuth";
 
 export function RootRedirect() {
-    // TODO: Create autenticate hook
-
-    const isAuthenticated = true;
+    const isAuthenticated = useAuth().isAuthenticated;
+    console.log('isAuthenticated en RootRedirect:', isAuthenticated);
 
     if(isAuthenticated) {
         return <Navigate to ='/home' replace/>

@@ -1,10 +1,24 @@
+import { useEffect } from "react";
 import { useAuthStore } from "./useAuthStore"
+import { useNavigate } from "react-router-dom";
 
 export function useAuth() {
+
+    const navigate = useNavigate();
     const user = useAuthStore(state => state.user);
     const isAuthenticated = useAuthStore(state => state.isAuthenticated);
     const login = useAuthStore(state => state.login);
-    const logout = useAuthStore(state => state.logout);    
+    const logout = useAuthStore(state => state.logout);
+    const setIsAuthenticated = useAuthStore(state => state.setIsAuthenticated);
+
+    useEffect(() => {
+        const token = localStorage.getItem('x-access-token');
+        if(!token) navigate('/auth/login');
+        else {
+            setIsAuthenticated(true);
+            navigate('/home');
+        }
+    }, [useNavigate])
 
     return {
         user,
