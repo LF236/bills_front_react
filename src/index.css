@@ -1,4 +1,10 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
-@plugin '@tailwindcss/forms';
+@tailwind utilities; */
+
+/* @plugin '@tailwindcss/forms'; */
+
+@theme {
+  --font-sans: Inter, sans-serif;
+  --font-sans--font-feature-settings: 'cv11';
+}

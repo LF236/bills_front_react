@@ -1,4 +1,5 @@
 import { ImageLogo } from "../../common/components/Logo"
+import { LoginForm } from "../components/LoginForm"
 
 export const AuthLayout = ({
 	title,
@@ -10,30 +11,9 @@ export const AuthLayout = ({
 	subtitle: React.ReactNode
 }) => {
 	return (
-		<main className="flex min-h-full overflow-hidden pt-16 sm:py-28">
-			<div className="mx-auto flex w-full max-w-2xl flex-col px-4 sm:px-6">
-
-				<a href="#" className="mx-auto h-10 w-auto">
-					<ImageLogo
-						text="LF236"
-						src="https://file.garden/aNa8POjYu0nxNoUR/tigre.png"
-						width={40}
-						height={40}
-					/>
-				</a>
-				<div className="relative mt-12 sm:mt:16">
-					<h1 className="text-center text-2xl font-medium tracking-tight text-gray-900">
-						{title}
-					</h1>
-
-					{subtitle && (
-						<p className="mt-3 text-center text-lg text-gray-600">{subtitle}</p>
-					)}
-				</div>
-
-				<div className="-mx-4 mt-10 flex-auto px-4 py-10 shadow-2xl shadow-gray-900/10 sm:mx-0 sm:flex-none sm:rounded-5xl sm:p-24">
-					{children}
-				</div>
+		<main className="flex min-h-dvh flex-col p-2">
+			<div className="flex grow items-center justify-center p-6 lg:rounded-lg lg:bg-white lg:p-10 lg:shadow-xs lg:ring-1 lg:ring-zinc-950/5 dark:lg:bg-zinc-900 dark:lg:ring-white/10">
+				{children}
 			</div>
 		</main>
 	)
