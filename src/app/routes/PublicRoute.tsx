@@ -3,15 +3,17 @@ import { PublicLayout } from "../../features/common/components/layout/PublicLayo
 import { useAuth } from "../../features/auth/hooks/useAuth";
 
 export function PublicRoute() {
-    const isAuthenticated = useAuth().isAuthenticated;
-    
-    if(isAuthenticated) {
-        return <Navigate to ='/home' replace/>
-    }
-    
-    return(
-        <PublicLayout>
-            <Outlet />
-        </PublicLayout>
-    );
+	const isAuthenticated = useAuth().isAuthenticated;
+	console.log('PublicRoute - isAuthenticated:', isAuthenticated);
+	
+	if (isAuthenticated) {
+		console.log('SI');
+		return <Navigate to='/home' replace />
+	}
+
+	return (
+		<PublicLayout>
+			<Outlet />
+		</PublicLayout>
+	);
 }

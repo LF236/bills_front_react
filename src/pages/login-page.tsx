@@ -4,7 +4,7 @@ import { AuthLayout } from "../features/auth/layouts/AuthLayout";
 export const LoginPage = () => {
 	return (
 		<AuthLayout
-			title="Sign in to account"
+			title="Login"
 			subtitle={
 				<>
 					Dont't have an account? {''}

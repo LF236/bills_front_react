@@ -3,8 +3,8 @@ export function PublicLayout({
     ...props
 } : React.PropsWithChildren) {
     return(
-        <div>
+        <>
             { children }
-        </div>
+        </>
     );
 }

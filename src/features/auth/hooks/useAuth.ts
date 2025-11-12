@@ -13,12 +13,11 @@ export function useAuth() {
 
     useEffect(() => {
         const token = localStorage.getItem('x-access-token');
-        if(!token) navigate('/auth/login');
-        else {
+        if(token) {
             setIsAuthenticated(true);
             navigate('/home');
         }
-    }, [useNavigate])
+    }, [useNavigate]);
 
     return {
         user,

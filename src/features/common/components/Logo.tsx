@@ -9,7 +9,7 @@ export function ImageLogo({
     src,
     alt = 'Logo',
     text,
-    textClassName = 'text-gray-900 font-bold ml-2',
+    textClassName = 'text-2xl/8 font-semibold text-zinc-950 sm:text-xl/8 dark:text-white ml-2',
     className,
     ...props
 } : ImageLogoProps) {
