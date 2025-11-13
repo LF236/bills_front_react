@@ -4,8 +4,14 @@ import { Formik, Form as FormikForm, Field as FormikField } from 'formik';
 import { ErrorMessage, Field, Label } from '../../common/components/fieldset';
 import { Input } from '../../common/components/input';
 import { Button } from '../../common/components/button';
+import { AuthService } from '../api/auth.service';
+import { useAlertStore } from '../../common/store/useAlertStore';
+import { useState } from 'react';
+import { RegistrationCompleted } from './RegistrationCompleted';
 
 export const RegisterForm = () => {
+	const addAlert = useAlertStore(state => state.addAlert);
+	const [isRegistrationCompleted, setIsRegistrationCompleted] = useState(true);
 
 	const validationSchema = Yup.object({
 		email: Yup.string().email('Invalid email adress').required('Email is required'),
@@ -18,11 +24,47 @@ export const RegisterForm = () => {
 
 
 	const handleSubmit = async (values: { email: string; password: string; confirmPassword: string; name: string }) => {
-		// Registration logic goes here
-		console.log('Submitted values:', values);
+		try {
+			const response = await AuthService.signUp({
+				email: values.email,
+				password: values.password,
+				name: values.name,
+				repeatPassword: values.confirmPassword
+			});
+			if(response) {
+				console.log(response);
+			}
+		} catch (error: any) {
+				if(error.response && error.response.data && error.response.data.message) {
+				addAlert({
+					title: 'Sign Up Error',
+					subtitle: error.response.data.message,
+					type: 'error',
+					showButtonClose: true,
+					isWithTimeToClose: true,
+					timeToClose: 2000
+				});
+				return;
+			}
+
+			if(error.message) {
+				addAlert({
+					title: 'Sign Up Error',
+					subtitle: error.message,
+					type: 'error',
+					showButtonClose: true,
+					isWithTimeToClose: true,
+					timeToClose: 2000
+				});
+				return;
+			}
+		}
+
 	}
 
 	return(
+		<>
+			<RegistrationCompleted isOpen={isRegistrationCompleted} onClose={() => {}} />
 			<Formik
 				initialValues={{ email: '', password: '', confirmPassword: '', name: '' }}
 				validationSchema={validationSchema}
@@ -107,7 +149,7 @@ export const RegisterForm = () => {
 						</Button>
 					</FormikForm>
 				)}
-
 			</Formik>
+		</>
 	)
 }
