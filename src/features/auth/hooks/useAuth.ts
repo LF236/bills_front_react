@@ -9,6 +9,7 @@ export function useAuth() {
     const isAuthenticated = useAuthStore(state => state.isAuthenticated);
     const login = useAuthStore(state => state.login);
     const logout = useAuthStore(state => state.logout);
+    const register = useAuthStore(state => state.register);
     const setIsAuthenticated = useAuthStore(state => state.setIsAuthenticated);
 
     useEffect(() => {
@@ -23,6 +24,7 @@ export function useAuth() {
         user,
         isAuthenticated,
         login,
-        logout
+        logout,
+        register
     }
 }

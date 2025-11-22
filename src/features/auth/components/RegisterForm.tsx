@@ -4,15 +4,18 @@ import { Formik, Form as FormikForm, Field as FormikField } from 'formik';
 import { ErrorMessage, Field, Label } from '../../common/components/fieldset';
 import { Input } from '../../common/components/input';
 import { Button } from '../../common/components/button';
-import { AuthService } from '../api/auth.service';
 import { useAlertStore } from '../../common/store/useAlertStore';
 import { useState } from 'react';
 import { RegistrationCompleted } from './RegistrationCompleted';
+import { useAuth } from '../hooks/useAuth';
+import { useLoadingStore } from '../../common/store/useLoadingStore';
 
 export const RegisterForm = () => {
 	const addAlert = useAlertStore(state => state.addAlert);
-	const [isRegistrationCompleted, setIsRegistrationCompleted] = useState(true);
-
+	const [isRegistrationCompleted, setIsRegistrationCompleted] = useState(false);
+	const auth = useAuth();
+	const { setLoading, clearLoading } = useLoadingStore();
+	
 	const validationSchema = Yup.object({
 		email: Yup.string().email('Invalid email adress').required('Email is required'),
 		password: Yup.string().required('Password is required'),
@@ -25,14 +28,19 @@ export const RegisterForm = () => {
 
 	const handleSubmit = async (values: { email: string; password: string; confirmPassword: string; name: string }) => {
 		try {
-			const response = await AuthService.signUp({
+			setLoading({
+				title: 'Registering Account',
+				subtitle: 'Please wait while we create your account.',
+				type: 'fullscreen'
+			});
+			const response = await auth.register({
 				email: values.email,
 				password: values.password,
 				name: values.name,
-				repeatPassword: values.confirmPassword
+				confirmPassword: values.confirmPassword
 			});
 			if(response) {
-				console.log(response);
+				setIsRegistrationCompleted(true);
 			}
 		} catch (error: any) {
 				if(error.response && error.response.data && error.response.data.message) {
@@ -58,6 +66,8 @@ export const RegisterForm = () => {
 				});
 				return;
 			}
+		} finally {
+			clearLoading();
 		}
 
 	}

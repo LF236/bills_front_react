@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { Button } from "../../common/components/button";
+
 import { ErrorMessage, Field, Label } from "../../common/components/fieldset";
 import { Input } from "../../common/components/input";
 import { useAuth } from "../hooks/useAuth";
 import { useAlertStore } from "../../common/store/useAlertStore";
 import * as Yup from 'yup';
 import { Formik, Form as FormikForm, Field as FormikField } from "formik";
+import { Button } from "../../common/components/button";
 
 export const LoginForm = () => {
 	const login = useAuth();
@@ -34,8 +35,6 @@ export const LoginForm = () => {
 				}, 1000);
 			}
 		} catch (error : any) {
-			console.log(error);
-
 			if(error.response && error.response.data && error.response.data.message) {
 				addAlert({
 					title: 'Login Error',

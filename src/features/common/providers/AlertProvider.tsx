@@ -5,7 +5,7 @@ export const AlertProvider = () => {
 	const { alerts, removeAlert } = useAlertStore();
 
 	return (
-		<div className='fixed inset-0 flex flex-col items-end p-4 space-y-4 pointer-events-none'>
+		<div className='fixed inset-0 flex flex-col items-end p-4 space-y-4 pointer-events-none z-50'>
 			{alerts.map((alert, i) => (
 				<AlertDefault
 					key={alert.id}

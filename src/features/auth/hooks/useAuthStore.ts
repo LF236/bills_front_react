@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { AuthService } from '../api/auth.service';
+import type { SignInInterface } from '../types/auth.types';
 
 interface AuthState {
     user: { name: string, email: string } | null;
@@ -9,6 +10,7 @@ interface AuthState {
     logout: () => void;
     validateToken: (token: string) => Promise<void>;
     setIsAuthenticated: (isAuthenticated: boolean) => void;
+    register: (userData: SignInInterface) => Promise<boolean>;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -41,6 +43,22 @@ export const useAuthStore = create<AuthState>((set) => ({
 
     validateToken: async (token: string) => {
 
+    },
+
+    register: async (userData: SignInInterface) => {
+        try {
+            const response = await AuthService.signUp(userData);
+            console.log(response);
+            if(response.data) {
+                return true;
+            } else {
+                throw new Error('Invalid response from server - Please contact support');
+            }
+        } catch (error) {
+            throw error;
+        } finally {
+
+        }
     },
 
     setIsAuthenticated: (isAuthenticated: boolean) => set(() => ({ isAuthenticated }))
