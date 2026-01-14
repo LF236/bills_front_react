@@ -1,21 +1,21 @@
 import axios from "axios"
-import { API_URL } from "../../../config"
+import { env } from "../../../config"
 import type { SignInInterface } from "../types/auth.types";
 
 export const AuthService = {
 	login: async (email: string, password: string) => {
-		const response = await axios.post(`${API_URL}/auth/signin`, { email, password });
+		const response = await axios.post(`${env.API_URL}/auth/signin`, { email, password });
 		return response;
 	},
 
 	signUp: async (data: SignInInterface) => {
-		const response = await axios.post(`${API_URL}/auth/signup`, data);
+		const response = await axios.post(`${env.API_URL}/auth/signup`, data);
 		return response;
 	},
 
 	validateToken: async (token: string) => {
 		try {
-			const respose = await axios.post(`${API_URL}/magic-link/validate`, { token });
+			const respose = await axios.post(`${env.API_URL}/magic-link/validate`, { token });
 			return respose;
 		} catch (error) {
 			return AuthService.handleError(error);
@@ -24,7 +24,7 @@ export const AuthService = {
 
 	requestNewToken: async (email: string) => {
 		try {
-			const response = await axios.post(`${API_URL}/magic-link/request_new_token`, { email });
+			const response = await axios.post(`${env.API_URL}/magic-link/request_new_token`, { email });
 			return response;
 		} catch (error) {
 			return AuthService.handleError(error);

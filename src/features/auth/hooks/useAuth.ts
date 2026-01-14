@@ -3,7 +3,6 @@ import { useAuthStore } from "./useAuthStore"
 import { useNavigate } from "react-router-dom";
 
 export function useAuth() {
-
     const navigate = useNavigate();
     const user = useAuthStore(state => state.user);
     const isAuthenticated = useAuthStore(state => state.isAuthenticated);
@@ -11,6 +10,8 @@ export function useAuth() {
     const logout = useAuthStore(state => state.logout);
     const register = useAuthStore(state => state.register);
     const setIsAuthenticated = useAuthStore(state => state.setIsAuthenticated);
+    const setMe = useAuthStore(state => state.setMe);
+    const cleanMe = useAuthStore(state => state.cleanMe);
 
     useEffect(() => {
         const token = localStorage.getItem('x-access-token');
@@ -25,6 +26,8 @@ export function useAuth() {
         isAuthenticated,
         login,
         logout,
-        register
+        register,
+        setMe,
+        cleanMe
     }
 }

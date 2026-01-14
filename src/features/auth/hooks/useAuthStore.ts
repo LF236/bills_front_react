@@ -1,9 +1,10 @@
 import { create } from 'zustand';
 import { AuthService } from '../api/auth.service';
 import type { SignInInterface } from '../types/auth.types';
+import type { Me } from '../domain/me.model';
 
 interface AuthState {
-    user: { name: string, email: string } | null;
+    user: Me | null;
     isAuthenticated: boolean;
     isLoading?: boolean;
     login: (userData: { email: string, password: string }) => Promise<boolean>;
@@ -11,6 +12,8 @@ interface AuthState {
     validateToken: (token: string) => Promise<void>;
     setIsAuthenticated: (isAuthenticated: boolean) => void;
     register: (userData: SignInInterface) => Promise<boolean>;
+    setMe: (user: Me) => void;
+    cleanMe: () => void;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -35,14 +38,24 @@ export const useAuthStore = create<AuthState>((set) => ({
         }
     },
 
-    logout: () =>
-        set(() => ({
+    logout: () => {
+        localStorage.removeItem('x-access-token');
+        set({
             user: null,
             isAuthenticated: false
-        })),
+        })
+    },
 
     validateToken: async (token: string) => {
 
+    },
+
+    setMe(user: Me) {
+        set({ user });
+    },
+
+    cleanMe() {
+        set({ user: null });
     },
 
     register: async (userData: SignInInterface) => {

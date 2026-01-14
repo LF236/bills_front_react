@@ -23,7 +23,7 @@ export function AppLayout({
 						<Dropdown>
 							<DropdownButton as={NavbarItem}>
 								<Avatar
-									src='https://sica.ssaver.gob.mx/fotos-de-empleados/MAT7004.jpg'
+									src='https://file.garden/aNa8POjYu0nxNoUR/miron.jpg'
 									alt="User avatar"
 								/>
 							</DropdownButton>
@@ -40,11 +40,11 @@ export function AppLayout({
 						<Dropdown>
 							<DropdownButton as={SidebarItem}>
 								<Avatar
-									src='https://sica.ssaver.gob.mx/fotos-de-empleados/MAT7004.jpg'
+									src='https://file.garden/aNa8POjYu0nxNoUR/miron.jpg'
 									alt="User avatar"
 								/>
-								<SidebarLabel>MironChini</SidebarLabel>
-								<ChevronDownIcon width={'40px'} />
+								<SidebarLabel>MIRON AZUECENO</SidebarLabel>
+								<ChevronDownIcon/>
 							</DropdownButton>
 
 							<DropdownMenu className='min-w-80 lg:min-w-64' anchor='bottom start'>
@@ -123,9 +123,9 @@ export function AppLayout({
 						<Dropdown>
 							<DropdownButton as={SidebarItem}>
 								<span className='flex min-w-0 items-center gap-3'>
-									<Avatar src='https://sica.ssaver.gob.mx/fotos-de-empleados/MAT7004.jpg' alt="User avatar" className='size-10' square />
+									<Avatar src='https://file.garden/aNa8POjYu0nxNoUR/miron.jpg' alt="User avatar" className='size-10' square />
 									<span className='min-w-p'>
-										<span className='block truncate text-sm/5 font-medium text-zinc-950 dark:text-white'>MIRON</span>
+										<span className='block truncate text-sm/5 font-medium text-zinc-950 dark:text-white'>MIRON SCREEN</span>
 										<span className='block truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400'>
 											omiron@drapper.com
 										</span>

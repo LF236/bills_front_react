@@ -1,17 +1,20 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { PrivateLayout } from "../../features/common/components/layout/PrivateLayout";
 import { useAuth } from "../../features/auth/hooks/useAuth";
+import { GraphQLProvider } from "../GraphQLProvider";
 
 export function PrivateRoute() {
-    const { isAuthenticated } = useAuth();
+	const { isAuthenticated } = useAuth();
 
-    if(!isAuthenticated) {
-        return <Navigate to ='/landing' replace/>
-    }
+	if (!isAuthenticated) {
+		return <Navigate to='/landing' replace />
+	}
 
-    return(
-        <PrivateLayout>
-            <Outlet />
-        </PrivateLayout>
-    );
+	return (
+		<GraphQLProvider>
+			<PrivateLayout>
+				<Outlet />
+			</PrivateLayout>
+		</GraphQLProvider>
+	);
 }
