@@ -12,14 +12,20 @@ export function useAuth() {
     const setIsAuthenticated = useAuthStore(state => state.setIsAuthenticated);
     const setMe = useAuthStore(state => state.setMe);
     const cleanMe = useAuthStore(state => state.cleanMe);
+    const setIsAuthLoading = useAuthStore(state => state.setIsAuthLoading);
+    const isLoading = useAuthStore(state => state.isLoading);
 
     useEffect(() => {
+        setIsAuthLoading(true);
+        // TODO: Add logic to validate token expiration
         const token = localStorage.getItem('x-access-token');
+        // TODO: Validate token expiration
         if(token) {
             setIsAuthenticated(true);
-            navigate('/home');
+            // navigate('/home');
         }
-    }, [useNavigate]);
+        setIsAuthLoading(false);
+    }, [useNavigate, setIsAuthenticated]);
 
     return {
         user,
@@ -28,6 +34,7 @@ export function useAuth() {
         logout,
         register,
         setMe,
-        cleanMe
+        cleanMe,
+        isLoading
     }
 }

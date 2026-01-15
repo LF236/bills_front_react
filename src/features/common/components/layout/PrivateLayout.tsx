@@ -11,7 +11,6 @@ export function PrivateLayout({
 
 	useEffect(() => {
 		if(loading) return;
-		console.log(me);
 	}, [me, loading]);
 
 	return (

@@ -14,12 +14,13 @@ interface AuthState {
     register: (userData: SignInInterface) => Promise<boolean>;
     setMe: (user: Me) => void;
     cleanMe: () => void;
+    setIsAuthLoading: (isLoading: boolean) => void;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
     user: null,
     isAuthenticated: false,
-    isLoading: false,
+    isLoading: true,
     login: async (userData: { email: string, password: string }) => {
         set({ isLoading: true });
         try {
@@ -74,5 +75,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         }
     },
 
-    setIsAuthenticated: (isAuthenticated: boolean) => set(() => ({ isAuthenticated }))
+    setIsAuthenticated: (isAuthenticated: boolean) => set(() => ({ isAuthenticated })),
+
+    setIsAuthLoading: (isLoading: boolean) => set(() => ({ isLoading }))
 }));

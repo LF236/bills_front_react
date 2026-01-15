@@ -4,10 +4,14 @@ import { useAuth } from "../../features/auth/hooks/useAuth";
 import { GraphQLProvider } from "../GraphQLProvider";
 
 export function PrivateRoute() {
-	const { isAuthenticated } = useAuth();
+	const { isAuthenticated, isLoading } = useAuth();
 
-	if (!isAuthenticated) {
-		return <Navigate to='/landing' replace />
+	if(isLoading) {
+		return <div>Loading...</div>;
+	}
+
+	if(!isAuthenticated) {
+		return <Navigate to ='/landing' replace />
 	}
 
 	return (

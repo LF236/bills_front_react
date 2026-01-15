@@ -112,5 +112,5 @@ export function Button({ className, ...props }: ButtonProps) {
     return <a className={className} {...props} />
   }
 
-  return <button type={'button'} className={className} {...props} />
+  return <button type="button" className={className} {...props} />
 }

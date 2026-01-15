@@ -4,10 +4,13 @@ import { useAuth } from "../../features/auth/hooks/useAuth";
 
 export function PublicRoute() {
 	const isAuthenticated = useAuth().isAuthenticated;
-	console.log('PublicRoute - isAuthenticated:', isAuthenticated);
+	const isAuthLoading = useAuth().isLoading;
 	
+	if(isAuthLoading) {
+		return <div>Loading...</div>;
+	}
+
 	if (isAuthenticated) {
-		console.log('SI');
 		return <Navigate to='/home' replace />
 	}
 
