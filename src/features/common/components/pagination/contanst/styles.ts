@@ -1,0 +1,1 @@
+export const selectNumPagesStypes = 'rounded-lg border border-zinc-300 bg-white px-2 py-1 text-sm text-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-950/20 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200';

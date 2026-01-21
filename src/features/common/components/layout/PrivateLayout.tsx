@@ -15,7 +15,7 @@ export function PrivateLayout({
 
 	return (
 		<AppLayout>
-			<section className='bg-gray-900 py-20 sm:py-32'>
+			<section>
 				<Container>
 					{children}
 				</Container>

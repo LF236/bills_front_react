@@ -62,7 +62,6 @@ export const useAuthStore = create<AuthState>((set) => ({
     register: async (userData: SignInInterface) => {
         try {
             const response = await AuthService.signUp(userData);
-            console.log(response);
             if(response.data) {
                 return true;
             } else {
