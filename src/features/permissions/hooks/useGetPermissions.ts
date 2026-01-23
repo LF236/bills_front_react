@@ -9,7 +9,9 @@ export function useGetPermissions() {
   const { search, offset, limit } = usePermissionStore();
   const [permissionsList, setPermissionsList] = useState<Permission[]>([]);
   const [total, setTotal] = useState<number>(0);
-  const [getPermissionsQuery, { data, loading, error, called }] = useLazyQuery(GET_PERMISSIONS_QUERY);
+  const [getPermissionsQuery, { data, loading, error, called }] = useLazyQuery(GET_PERMISSIONS_QUERY, {
+    fetchPolicy: 'network-only',
+  });
 
   useEffect(() => {
     if(called && data && !loading) {
@@ -28,7 +30,7 @@ export function useGetPermissions() {
         search,
         offset,
         limit,
-      }
+      },
     });
   }
 

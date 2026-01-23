@@ -1,0 +1,98 @@
+import { Formik, Form as FormikForm, Field as ForkikField } from 'formik';
+import * as Yup from 'yup';
+import { ErrorMessage, Field, Label } from '../../../common/components/fieldset';
+import { Input } from '../../../common/components/input';
+import { Textarea } from '../../../common/components/textarea';
+import { Button } from '../../../common/components/button';
+import { usePermissionStore } from '../../hooks/usePermissionStore';
+import { useCreatePermission } from '../../hooks/useCreatePermission';
+import type { CreatePermissionInterface } from '../../types/permissions-gpl-types';
+import { useEffect, useState } from 'react';
+import { useGetPermissions } from '../../hooks/useGetPermissions';
+
+const AddPermissionForm = () => {
+  const { handleCreatePermission, loading, error, data } = useCreatePermission();
+  const { getPermissions } = useGetPermissions();
+  const [ localBlocking, setLocalBlocking ] = useState(false);
+  const { closeModalAddPermission } = usePermissionStore();
+
+  const validationSchema = Yup.object({
+    name: Yup.string().required('Name is required'),
+    description: Yup.string().required('Description is required')
+  });
+
+  const handleSubmit = (values: CreatePermissionInterface) => {
+    handleCreatePermission(values);
+  }
+
+  useEffect(() => {
+    if(error) {
+      setLocalBlocking(true);
+      setTimeout(() => {
+        setLocalBlocking(false);
+      }, 3000);
+    } else if(data) {
+      getPermissions();
+      setLocalBlocking(false);
+      closeModalAddPermission();
+    }
+  }, [loading, error, data]);
+
+  return (
+    <Formik
+      initialValues={{ name: '', description: '' }}
+      validationSchema={ validationSchema }
+      onSubmit={handleSubmit}
+    >
+      {({ errors, touched }) => (
+        <FormikForm>
+          <Field>
+            <Label htmlFor='name'>Name</Label>
+            <ForkikField
+              name='name'
+              type='text'
+              autoComplete="off"
+              as={Input}
+              invalid={!!(errors.name && touched.name)}
+            />
+
+            <div className='min-h-[1.5rem]'>
+              <ErrorMessage>
+                {errors.name && touched.name ? errors.name : ''}
+              </ErrorMessage>
+            </div>
+          </Field>
+
+          <Field>
+            <Label htmlFor='description'>Description</Label>
+            <ForkikField
+              name='description'
+              type='textarea'
+              autoComplete="off"
+              as={Textarea}
+              invalid={!!(errors.description && touched.description)}
+            />
+
+            <div className='min-h-[1.5rem]'>
+              <ErrorMessage>
+                {errors.description && touched.description ? errors.description : ''}
+              </ErrorMessage>
+            </div>
+          </Field>
+
+          <div className='flex justify-end gap-2'>
+            <Button className='mt-4 bg-red-600' onClick={closeModalAddPermission}>
+              Cancels
+            </Button>
+
+            <Button type='submit' className='mt-4' disabled={loading || localBlocking}>
+              Add Permission
+            </Button>
+          </div>
+        </FormikForm>
+      )}
+    </Formik>
+  );
+}
+
+export default AddPermissionForm;

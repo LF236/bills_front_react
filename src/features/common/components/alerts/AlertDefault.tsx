@@ -30,9 +30,12 @@ export default function AlertDefault({
 
 
 	useEffect(() => {
-		if (!isWithTimeToClose) return;
+		if (!isWithTimeToClose) {
+			return;
+		}
 		setTimeout(() => {
 			setShow(false);
+			onClose && onClose();
 		}, timeToClose);
 	}, []);
 
