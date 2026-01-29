@@ -50,7 +50,8 @@ export const RegisterForm = () => {
 					type: 'error',
 					showButtonClose: true,
 					isWithTimeToClose: true,
-					timeToClose: 2000
+					timeToClose: 2000,
+					id: crypto.randomUUID()
 				});
 				return;
 			}
@@ -62,7 +63,8 @@ export const RegisterForm = () => {
 					type: 'error',
 					showButtonClose: true,
 					isWithTimeToClose: true,
-					timeToClose: 2000
+					timeToClose: 2000,
+					id: crypto.randomUUID()
 				});
 				return;
 			}
