@@ -1,8 +1,6 @@
 import { Dialog, DialogBody, DialogDescription, DialogTitle } from "../../../common/components/dialog";
-import { FieldGroup, Label, Field } from "../../../common/components/fieldset";
 import { usePermissionStore } from "../../hooks/usePermissionStore";
-import { Input } from "@headlessui/react";
-import AddPermissionForm from "./AddPermissionForm";
+import AddPermissionForm from "./forms/AddPermissionForm";
 
 const AddPermissionModal = () => {
   const { isOpenModalAddPermission, closeModalAddPermission } = usePermissionStore();

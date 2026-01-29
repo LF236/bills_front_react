@@ -112,5 +112,8 @@ export function Button({ className, ...props }: ButtonProps) {
     return <a className={className} {...props} />
   }
 
-  return <button type="button" className={className} {...props} />
+  return <button type="button" className={clsx(
+    className,
+    'disabled' in props && props.disabled && 'opacity-50 cursor-not-allowed'
+  )} {...props} />
 }

@@ -1,14 +1,14 @@
 import { Formik, Form as FormikForm, Field as ForkikField } from 'formik';
 import * as Yup from 'yup';
-import { ErrorMessage, Field, Label } from '../../../common/components/fieldset';
-import { Input } from '../../../common/components/input';
-import { Textarea } from '../../../common/components/textarea';
-import { Button } from '../../../common/components/button';
-import { usePermissionStore } from '../../hooks/usePermissionStore';
-import { useCreatePermission } from '../../hooks/useCreatePermission';
-import type { CreatePermissionInterface } from '../../types/permissions-gpl-types';
 import { useEffect, useState } from 'react';
-import { useGetPermissions } from '../../hooks/useGetPermissions';
+import { useCreatePermission } from '../../../hooks/useCreatePermission';
+import { useGetPermissions } from '../../../hooks/useGetPermissions';
+import { usePermissionStore } from '../../../hooks/usePermissionStore';
+import type { CreatePermissionInterface } from '../../../types/permissions-gpl-types';
+import { ErrorMessage, Field, Label } from '../../../../common/components/fieldset';
+import { Input } from '../../../../common/components/input';
+import { Button } from '../../../../common/components/button';
+import { Textarea } from '../../../../common/components/textarea';
 
 const AddPermissionForm = () => {
   const { handleCreatePermission, loading, error, data } = useCreatePermission();
@@ -82,7 +82,7 @@ const AddPermissionForm = () => {
 
           <div className='flex justify-end gap-2'>
             <Button className='mt-4 bg-red-600' onClick={closeModalAddPermission}>
-              Cancels
+              Cancel
             </Button>
 
             <Button type='submit' className='mt-4' disabled={loading || localBlocking}>

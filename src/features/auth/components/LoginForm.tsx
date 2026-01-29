@@ -28,7 +28,8 @@ export const LoginForm = () => {
 					type: 'success',
 					showButtonClose: true,
 					isWithTimeToClose: true,
-					timeToClose: 1000
+					timeToClose: 1000,
+					id: crypto.randomUUID()
 				});
 				setTimeout(() => {
 					return navigate('/home');
@@ -42,7 +43,8 @@ export const LoginForm = () => {
 					type: 'error',
 					showButtonClose: true,
 					isWithTimeToClose: true,
-					timeToClose: 2000
+					timeToClose: 2000,
+					id: crypto.randomUUID()
 				});
 				return;
 			}
@@ -54,7 +56,8 @@ export const LoginForm = () => {
 					type: 'error',
 					showButtonClose: true,
 					isWithTimeToClose: true,
-					timeToClose: 2000
+					timeToClose: 2000,
+					id: crypto.randomUUID()
 				});
 				return;
 			}

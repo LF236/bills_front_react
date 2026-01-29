@@ -10,7 +10,7 @@ import { Button } from '../../common/components/button';
 
 const PermissionsTable = () => {
   const { permissionsList, loading, error, total, getPermissions } = useGetPermissions();
-  const { search, offset, limit, nextPage, previousPage, setLimit, moveByPagination, setSearch, reset } = usePermissionStore();
+  const { search, offset, limit, nextPage, previousPage, setLimit, moveByPagination, setSearch, reset, setUpdateOrDeletePermissionId, openUpdatePermissionModal } = usePermissionStore();
   const [localSearch, setLocalSearch] = useState('');
   useEffect(() => {
     getPermissions();
@@ -19,6 +19,11 @@ const PermissionsTable = () => {
   const onClickResetButton = () => {
     setLocalSearch('');
     reset();
+  }
+
+  const handleOpenModalUpdate = (id: string) => {
+    setUpdateOrDeletePermissionId(id);
+    openUpdatePermissionModal();
   }
 
   if(loading) return <p>Loading...</p>;
@@ -62,18 +67,22 @@ const PermissionsTable = () => {
           { permissionsList.map(( permission => (
             <TableRow key={permission.id}>
               <TableCell>{ `${permission.id}`.split('-').at(0) }</TableCell>
-              <TableCell className='text-zinc-500'>
+              <TableCell>
                 { permission.name }
               </TableCell>
 
-              <TableCell>{ permission.description }</TableCell>
+              <TableCell className='text-zinc-500'>{ permission.description }</TableCell>
               <TableCell>{ formatDate(permission.created_at) }</TableCell>
               <TableCell>
                 { permission.is_active ? 'Active' : 'Inactive' }
               </TableCell>
 
               <TableCell>
-                <PencilSquareIcon className='inline h-5 w-5 cursor-pointer text-blue-500 hover:text-blue-600 mr-4' aria-label='Edit Permission' />
+                <PencilSquareIcon 
+                  className='inline h-5 w-5 cursor-pointer text-blue-500 hover:text-blue-600 mr-4' 
+                  aria-label='Edit Permission' 
+                  onClick={() => handleOpenModalUpdate(permission.id)}
+                />
                 <XCircleIcon className='inline h-5 w-5 cursor-pointer text-red-500 hover:text-red-600' aria-label='Delete Permission' />
               </TableCell>
             </TableRow>
