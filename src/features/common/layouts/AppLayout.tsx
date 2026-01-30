@@ -3,8 +3,9 @@ import { Avatar } from "../components/avatar"
 import { Dropdown, DropdownButton, DropdownDivider, DropdownItem, DropdownLabel, DropdownMenu } from "../components/dropdown"
 import { AccountDropdownMenu } from "../components/layout/AccountDropdownMenu"
 import { Navbar, NavbarItem, NavbarSection, NavbarSpacer } from "../components/navbar"
-import { Sidebar, SidebarBody, SidebarFooter, SidebarHeader, SidebarHeading, SidebarItem, SidebarLabel, SidebarSection, SidebarSpacer } from "../components/sidebar"
+import { Sidebar, SidebarBody, SidebarFooter, SidebarHeader, SidebarHeading, SidebarItem, SidebarLabel, SidebarSection, SidebarSpacer } from '../components/sidebar';
 import { SidebarLayout } from "../components/SidebarLayout"
+import { Link } from "react-router-dom"
 
 const HOME_ICON_SIZE = 20;
 
@@ -90,18 +91,24 @@ export function AppLayout({
 
 						<SidebarSection className='mx-lg:hiden'>
 							<SidebarHeading>Super User Settings</SidebarHeading>
-							<SidebarItem href="#" key='luigi'>
-								Users Managment
-							</SidebarItem>
 
-							<SidebarItem href="#" key='luigi2'>
-								Roles Managment
-							</SidebarItem>
+							<Link to='/users' key='users'>
+								<SidebarItem key='users'>
+									Users Managment
+								</SidebarItem>
+							</Link>
 
-							<SidebarItem href="#" key='luigi3'>
-								Permissions Managment
-							</SidebarItem>
+							<Link to='/roles' key='roles'>
+								<SidebarItem>
+									Roles Managment
+								</SidebarItem>
+							</Link>
 
+							<Link to='/permissions' key='permissions'>
+								<SidebarItem>
+									Permission Managment
+								</SidebarItem>
+							</Link>
 						</SidebarSection>
 
 						<SidebarSpacer />

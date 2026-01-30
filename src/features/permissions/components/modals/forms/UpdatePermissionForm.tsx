@@ -22,7 +22,7 @@ const UpdatePermissionForm = ({ id } : Props) => {
   const [ localBlocking, setLocalBlocking] = useState(false);
   
   const validationSchema = Yup.object({
-    name: Yup.string().required('Name is required'),
+    name: Yup.string().required('Name is required').max(15, 'Name must be at most 15 characters'),
     description: Yup.string().required('Description is required'),
     is_active: Yup.boolean().required('Status is required')
   });
@@ -73,6 +73,7 @@ const UpdatePermissionForm = ({ id } : Props) => {
               type='text'
               autoComplete="off"
               as={Input}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFieldValue('name', `${e.target.value}`.trim())}
               invalid={!!(errors.name && touched.name)}
             />
 

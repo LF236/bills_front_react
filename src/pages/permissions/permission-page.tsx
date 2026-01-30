@@ -1,6 +1,7 @@
 import { Button } from "../../features/common/components/button";
 import { Heading } from "../../features/common/components/heading";
 import AddPermissionModal from "../../features/permissions/components/modals/AddPermissionModal";
+import DeletePermissionModal from "../../features/permissions/components/modals/DeletePermissionModal";
 import UpdatePermissionModal from "../../features/permissions/components/modals/UpdatePermissionModal";
 import PermissionsTable from "../../features/permissions/components/PermissionsTable";
 import { usePermissionStore } from "../../features/permissions/hooks/usePermissionStore";
@@ -20,6 +21,7 @@ const PermissionPage = () => {
 
       <AddPermissionModal />
       <UpdatePermissionModal />
+      <DeletePermissionModal />
     </>
   )
 }

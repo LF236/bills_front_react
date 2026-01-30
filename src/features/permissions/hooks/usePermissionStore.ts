@@ -25,6 +25,10 @@ interface PermissionStore {
   isUpdatePermissionModalOpen: boolean;
   openUpdatePermissionModal: () => void;
   closeUpdatePermissionModal: () => void;
+  // Delete Permission
+  isDeletePermissionModalOpen: boolean;
+  openDeletePermissionModal: () => void;
+  closeDeletePermissionModal: () => void;
 }
 
 export const usePermissionStore = create<PermissionStore>((set) => ({
@@ -50,5 +54,8 @@ export const usePermissionStore = create<PermissionStore>((set) => ({
   closeUpdatePermissionModal: () => set({ isUpdatePermissionModalOpen: false, permissionToUpdateOrDelete: null, idPermissionToUpdateOrDelete: null }),
   permissionToUpdateOrDelete: null,
   setPermissionToUpdateOrDelete: (permission: Permission | null) => set({ permissionToUpdateOrDelete: permission }),
-  
+  //
+  isDeletePermissionModalOpen: false,
+  openDeletePermissionModal: () => set((state) => ({ isDeletePermissionModalOpen: !state.isDeletePermissionModalOpen })),
+  closeDeletePermissionModal: () => set({ isDeletePermissionModalOpen: false, permissionToUpdateOrDelete: null, idPermissionToUpdateOrDelete: null }),
 }));

@@ -3,12 +3,12 @@ import * as Yup from 'yup';
 import { Formik, Form as FormikForm, Field as FormikField } from 'formik';
 import { ErrorMessage, Field, Label } from '../../common/components/fieldset';
 import { Input } from '../../common/components/input';
-import { Button } from '../../common/components/button';
 import { useAlertStore } from '../../common/store/useAlertStore';
 import { useState } from 'react';
 import { RegistrationCompleted } from './RegistrationCompleted';
 import { useAuth } from '../hooks/useAuth';
 import { useLoadingStore } from '../../common/store/useLoadingStore';
+import { Button } from '../../common/components/button';
 
 export const RegisterForm = () => {
 	const addAlert = useAlertStore(state => state.addAlert);

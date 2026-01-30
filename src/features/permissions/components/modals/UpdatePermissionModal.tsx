@@ -5,9 +5,7 @@ import UpdatePermissionForm from "./forms/UpdatePermissionForm";
 import { useGetPermissionById } from "../../hooks/useGetPermissionById";
 
 const UpdatePermissionModal = () => {
-  const { isUpdatePermissionModalOpen, 
-    closeUpdatePermissionModal, 
-    openUpdatePermissionModal, 
+  const { isUpdatePermissionModalOpen,
     idPermissionToUpdateOrDelete,
     setPermissionToUpdateOrDelete
   } = usePermissionStore();

@@ -19,3 +19,9 @@ export const UPDATE_PERMISSION_MUTATION = gql`
     }
   }
 `;
+
+export const DELETE_PERMISSION_MUTATION = gql`
+  mutation RemovePermission($removePermissionId: ID!) {
+    removePermission(id: $removePermissionId)
+  }
+`;
