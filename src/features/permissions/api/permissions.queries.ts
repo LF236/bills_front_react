@@ -20,6 +20,17 @@ export const GET_PERMISSIONS_QUERY = gql`
   }
 `;
 
+export const GET_ALL_PERMISSIONS_QUERY = gql`
+  query Permissions($offset: Int, $limit: Int, $search: String, $paginate: Boolean!) {
+    permissions(offset: $offset, limit: $limit, search: $search, paginate: $paginate) {
+      items {
+        id
+        name
+      }
+    }
+  }
+`;
+
 export const GET_PERMISSION_BY_ID_QUERY = gql`
   query Permission($permissionId: ID!) {
     permission(id: $permissionId) {

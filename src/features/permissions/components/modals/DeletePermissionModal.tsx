@@ -11,11 +11,7 @@ const DeletePermissionModal = () => {
       <DialogTitle>
         Delete Permission
       </DialogTitle>
-
-      <DialogDescription>
-        Here will be the form to delete an existing permission.
-      </DialogDescription>
-
+      
       <DialogBody>
         <DeletePermissionForm
         />

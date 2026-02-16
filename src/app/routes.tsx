@@ -8,6 +8,9 @@ import { HomePage } from '../pages/home-page'
 import { RootRedirect } from './routes/RootRedirect'
 import { ValidateTokenPage } from '../pages/auth/validate-token-page'
 import PermissionPage from '../pages/permissions/permission-page'
+import RolesPage from '../pages/roles/roles-page'
+import RoleUpdatePage from '../pages/roles/role-update-page'
+import RoleCreatePage from '../pages/roles/role-create-page'
 
 export const AppRouter = () => {
 	return (
@@ -17,6 +20,9 @@ export const AppRouter = () => {
 
 				<Route element={ <PrivateRoute /> }>
 					<Route path='/permissions' element={ <PermissionPage /> } />
+					<Route path='/roles' element={ <RolesPage /> } />
+					<Route path='/roles/:id' element={ <RoleUpdatePage /> } />
+					<Route path='/roles/create' element={ <RoleCreatePage /> } />
 					<Route path='/home' element={ <HomePage /> } />
 				</Route>
 

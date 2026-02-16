@@ -44,7 +44,7 @@ const PermissionsTable = () => {
         <Input 
           className='w-full'
           type='text'
-          placeholder='Search permissions... Click to search'
+          placeholder='Search permissions... Enter to search'
           value={localSearch}
           onChange={(e) => setLocalSearch(e.currentTarget.value)}
           onKeyDown={(e) => {

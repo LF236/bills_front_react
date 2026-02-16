@@ -88,7 +88,6 @@ export function AppLayout({
 							</SidebarItem>
 						</SidebarSection>
 
-
 						<SidebarSection className='mx-lg:hiden'>
 							<SidebarHeading>Super User Settings</SidebarHeading>
 
