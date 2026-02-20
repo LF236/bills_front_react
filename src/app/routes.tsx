@@ -11,6 +11,8 @@ import PermissionPage from '../pages/permissions/permission-page'
 import RolesPage from '../pages/roles/roles-page'
 import RoleUpdatePage from '../pages/roles/role-update-page'
 import RoleCreatePage from '../pages/roles/role-create-page'
+import UsersPage from '../pages/users/users-page'
+import UsersEditPage from '../pages/users/users-edit-page'
 
 export const AppRouter = () => {
 	return (
@@ -23,6 +25,8 @@ export const AppRouter = () => {
 					<Route path='/roles' element={ <RolesPage /> } />
 					<Route path='/roles/:id' element={ <RoleUpdatePage /> } />
 					<Route path='/roles/create' element={ <RoleCreatePage /> } />
+					<Route path='/users' element={ <UsersPage /> } /> 
+					<Route path='/users/:id' element={ <UsersEditPage /> } />
 					<Route path='/home' element={ <HomePage /> } />
 				</Route>
 
