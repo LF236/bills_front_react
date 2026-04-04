@@ -13,21 +13,30 @@ import RoleUpdatePage from '../pages/roles/role-update-page'
 import RoleCreatePage from '../pages/roles/role-create-page'
 import UsersPage from '../pages/users/users-page'
 import UsersEditPage from '../pages/users/users-edit-page'
+import { GraphQLProvider } from './GraphQLProvider'
+import PersonEditPage from '../pages/person/person-edit-page'
+import RequirePersonRoute from './routes/RequirePersonRoute'
 
 export const AppRouter = () => {
 	return (
+		<GraphQLProvider>
 		<BrowserRouter>
 			<Routes>
 			
 
 				<Route element={ <PrivateRoute /> }>
-					<Route path='/permissions' element={ <PermissionPage /> } />
-					<Route path='/roles' element={ <RolesPage /> } />
-					<Route path='/roles/:id' element={ <RoleUpdatePage /> } />
-					<Route path='/roles/create' element={ <RoleCreatePage /> } />
-					<Route path='/users' element={ <UsersPage /> } /> 
-					<Route path='/users/:id' element={ <UsersEditPage /> } />
-					<Route path='/home' element={ <HomePage /> } />
+					<Route path='/users/person/create' element={ <PersonEditPage /> } />
+					
+					<Route element={ <RequirePersonRoute /> }>
+						<Route path='/permissions' element={ <PermissionPage /> } />
+						<Route path='/roles' element={ <RolesPage /> } />
+						<Route path='/roles/:id' element={ <RoleUpdatePage /> } />
+						<Route path='/roles/create' element={ <RoleCreatePage /> } />
+						<Route path='/users' element={ <UsersPage /> } /> 
+						<Route path='/users/:id' element={ <UsersEditPage /> } />
+						<Route path='/home' element={ <HomePage /> } />
+					</Route>
+					
 				</Route>
 
 
@@ -41,5 +50,6 @@ export const AppRouter = () => {
 				
 			</Routes>
 		</BrowserRouter>
+		</GraphQLProvider>
 	)
 }

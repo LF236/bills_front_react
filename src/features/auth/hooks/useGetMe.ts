@@ -1,20 +1,37 @@
-import { useQuery } from "@apollo/client/react";
+import { useLazyQuery, useQuery } from "@apollo/client/react";
 import type { Me } from "../domain/me.model";
 import { GET_ME_QUERY } from "../api/auth.queries";
 import { mapMeDtoToModel } from "../api/mapMeDtoToModel";
 
 interface UseGetMeResult {
-  me: Me | null;
+  // me: Me | null;
   loading: boolean;
-  error: Error | null;
+  error: Error | undefined;
+  called: boolean;
+  getMe: (token: string) => void;
+  data: any;
 }
 
 export function useGetMe() : UseGetMeResult {
-  const {data, loading, error} = useQuery<any>(GET_ME_QUERY);
+  const [ getMe, { loading, data, error, called } ] = useLazyQuery(GET_ME_QUERY, {
+    fetchPolicy: 'network-only'
+  });
+
+  const getMeRequest = (token: string) => {
+    getMe({
+      context: {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    })
+  }
 
   return {
-    me: data?.me ? mapMeDtoToModel(data.me) : null,
+    getMe: getMeRequest,
     loading,
-    error: error || null,
+    error,
+    called,
+    data
   }
 }

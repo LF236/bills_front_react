@@ -2,7 +2,9 @@ import React from 'react';
 
 const UsersEditPage = () => {
   return (
-    <div>Users Edit Page</div>
+    <div>
+      <h1>HOLA</h1>
+    </div>
   )
 }
 

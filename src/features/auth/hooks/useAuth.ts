@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuthStore } from "./useAuthStore"
 import { useNavigate } from "react-router-dom";
+import { useGetMe } from "./useGetMe";
 
 export function useAuth() {
     const navigate = useNavigate();
@@ -14,6 +15,8 @@ export function useAuth() {
     const cleanMe = useAuthStore(state => state.cleanMe);
     const setIsAuthLoading = useAuthStore(state => state.setIsAuthLoading);
     const isLoading = useAuthStore(state => state.isLoading);
+    const [ token, setToken ] = useState<string | null>(null);
+    const { getMe, data, loading, error, called } = useGetMe();
 
     useEffect(() => {
         setIsAuthLoading(true);
@@ -21,11 +24,33 @@ export function useAuth() {
         const token = localStorage.getItem('x-access-token');
         // TODO: Validate token expiration
         if(token) {
-            setIsAuthenticated(true);
-            // navigate('/home');
+            setToken(token);
+        } else {
+            setToken(null);
         }
         setIsAuthLoading(false);
     }, [useNavigate, setIsAuthenticated]);
+
+    useEffect(() => {
+        if(token) {
+            setIsAuthLoading(true);
+            getMe(token);
+            setIsAuthLoading(false);
+        }
+    }, [token]);
+
+    useEffect(() => {
+        if(loading) return;
+        if(data && called) {
+            const me = data.me;
+            setMe(me);
+            setIsAuthenticated(true);
+        } else if(error && called) {
+            setIsAuthenticated(false);
+            cleanMe();
+            localStorage.removeItem('x-access-token');
+        }
+    }, [ data, error, loading, called ]);
 
     return {
         user,

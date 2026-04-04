@@ -7,12 +7,6 @@ export function PrivateLayout({
 	children,
 	...props
 }: React.PropsWithChildren) {
-	const { me, loading } = useGetMe();
-
-	useEffect(() => {
-		if(loading) return;
-	}, [me, loading]);
-
 	return (
 		<AppLayout>
 			<section>
