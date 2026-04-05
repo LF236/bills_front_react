@@ -6,6 +6,7 @@ import { Navbar, NavbarItem, NavbarSection, NavbarSpacer } from "../components/n
 import { Sidebar, SidebarBody, SidebarFooter, SidebarHeader, SidebarHeading, SidebarItem, SidebarLabel, SidebarSection, SidebarSpacer } from '../components/sidebar';
 import { SidebarLayout } from "../components/SidebarLayout"
 import { Link } from "react-router-dom"
+import { useAuth } from "../../auth/hooks/useAuth"
 
 const HOME_ICON_SIZE = 20;
 
@@ -14,6 +15,15 @@ export function AppLayout({
 }: {
 	children: React.ReactNode
 }) {
+	const { user, isPersonExists } = useAuth();
+	const getFullName = () : string => {
+		if(!user) return '';
+		if(!isPersonExists()) {
+			return user?.name;
+		}
+		return `${user?.person?.first_name} ${user?.person?.last_name}`;
+	}
+
 	const pathName: string = '/';
 	return (
 		<SidebarLayout
@@ -44,7 +54,7 @@ export function AppLayout({
 									src='https://file.garden/aNa8POjYu0nxNoUR/miron.jpg'
 									alt="User avatar"
 								/>
-								<SidebarLabel>MIRON AZUECENO</SidebarLabel>
+								<SidebarLabel>{getFullName()}</SidebarLabel>
 								<ChevronDownIcon/>
 							</DropdownButton>
 
@@ -131,9 +141,9 @@ export function AppLayout({
 								<span className='flex min-w-0 items-center gap-3'>
 									<Avatar src='https://file.garden/aNa8POjYu0nxNoUR/miron.jpg' alt="User avatar" className='size-10' square />
 									<span className='min-w-p'>
-										<span className='block truncate text-sm/5 font-medium text-zinc-950 dark:text-white'>MIRON SCREEN</span>
+										<span className='block truncate text-sm/5 font-medium text-zinc-950 dark:text-white'>{ (user)!.name }</span>
 										<span className='block truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400'>
-											omiron@drapper.com
+											{ (user)!.email }
 										</span>
 									</span>
 								</span>

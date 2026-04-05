@@ -10,7 +10,7 @@ const RequirePersonRoute = () => {
   }
 
   if( user && !user.person ) {
-    // return <Navigate to='/users/person/create' replace />
+    return <Navigate to='/users/person/create' replace />
   }
   
   return (

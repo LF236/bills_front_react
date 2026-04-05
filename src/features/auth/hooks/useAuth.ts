@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuthStore } from "./useAuthStore"
 import { useNavigate } from "react-router-dom";
 import { useGetMe } from "./useGetMe";
+import type { Me } from "../domain/me.model";
 
 export function useAuth() {
     const navigate = useNavigate();
@@ -17,6 +18,12 @@ export function useAuth() {
     const isLoading = useAuthStore(state => state.isLoading);
     const [ token, setToken ] = useState<string | null>(null);
     const { getMe, data, loading, error, called } = useGetMe();
+    const [ isReloadingMe, setIsReloadingMe ] = useState(false); 
+
+    const isPersonExists = (): boolean => {
+        const { person } = user as Me;
+        return !!person;
+    }
 
     useEffect(() => {
         setIsAuthLoading(true);
@@ -39,12 +46,25 @@ export function useAuth() {
         }
     }, [token]);
 
+    const handleReloadMe = () => {
+        if(token) {
+            setIsAuthLoading(true);
+            setIsReloadingMe(true);
+            getMe(token);
+            setIsAuthLoading(false);
+        }
+    }
+
     useEffect(() => {
         if(loading) return;
         if(data && called) {
             const me = data.me;
             setMe(me);
             setIsAuthenticated(true);
+            if(isReloadingMe) {
+                setIsReloadingMe(false);
+                navigate('/home');
+            }
         } else if(error && called) {
             setIsAuthenticated(false);
             cleanMe();
@@ -60,6 +80,8 @@ export function useAuth() {
         register,
         setMe,
         cleanMe,
-        isLoading
+        isLoading,
+        isPersonExists,
+        handleReloadMe
     }
 }

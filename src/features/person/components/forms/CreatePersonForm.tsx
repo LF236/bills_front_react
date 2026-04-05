@@ -46,7 +46,7 @@ const personTypeOptions: PersonTypeOption[] = [
 
 const CreatePersonForm = () => {
   const {data, loading, error, handleCreatePerson: handleCreatePersonRequest} = useCreatePerson();
-  const {user} = useAuth();
+  const {user, handleReloadMe} = useAuth();
   const [localBlocking, setLocalBlocking] = useState(false);
 
   const validationSchema = Yup.object({
@@ -84,8 +84,7 @@ const CreatePersonForm = () => {
   }, [data, loading, error]);
 
   const relaodUserInfoAndRedirect = () => {
-    // TODO: Add logic to reload user info and redirect to home page | Reload User Info
-    console.log('Reloading user info and redirecting to home page');
+    handleReloadMe();
   }
 
   return (

@@ -80,7 +80,7 @@ export const useAuthStore = create<AuthState>()(
 
 				setIsAuthenticated: (isAuthenticated: boolean) => set(() => ({ isAuthenticated })),
 
-				setIsAuthLoading: (isLoading: boolean) => set(() => ({ isLoading }))
+				setIsAuthLoading: (isLoading: boolean) => set(() => ({ isLoading })),
 			}), { name: 'auth' }
 		)
 	)
