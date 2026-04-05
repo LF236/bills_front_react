@@ -3,4 +3,5 @@ export interface Me {
   name: string;
   email: string;
   is_active: boolean;
+  person: any | null;
 }

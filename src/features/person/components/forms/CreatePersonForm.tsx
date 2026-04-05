@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik, Form as FormikForm, Field as FormikField } from 'formik';
 import * as Yup from 'yup';
 import { Heading, Subheading } from '../../../common/components/heading';
@@ -8,8 +8,11 @@ import { Text } from '../../../common/components/text';
 import { Input } from '../../../common/components/input';
 import { Select } from '../../../common/components/select';
 import { Button } from '../../../common/components/button';
+import type { CreatePersonInterface } from '../../types/person-gql-types';
+import { useAuth } from '../../../auth/hooks/useAuth';
+import { useCreatePerson } from '../../hooks/useCreatePerson';
 
-const initValues = {
+const initValues : CreatePersonInterface = {
   first_name: '',
   last_name: '',
   second_last_name: '',
@@ -42,6 +45,10 @@ const personTypeOptions: PersonTypeOption[] = [
 ];
 
 const CreatePersonForm = () => {
+  const {data, loading, error, handleCreatePerson: handleCreatePersonRequest} = useCreatePerson();
+  const {user} = useAuth();
+  const [localBlocking, setLocalBlocking] = useState(false);
+
   const validationSchema = Yup.object({
     first_name: Yup.string().required('First name is required').min(2, 'Name must be at least 2 characters').max(50, 'Name must be at most 50 characters'),
     last_name: Yup.string().required('Last name is required').min(2, 'Name must be at least 2 characters').max(50, 'Name must be at most 50 characters'),
@@ -52,17 +59,40 @@ const CreatePersonForm = () => {
     rfc: Yup.string().required('RFC is required').matches(/^([A-ZÑ&]{3,4}) ?-? ?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?-? ?([A-Z\d]{3})$/, 'Invalid RFC format'),
     person_type: Yup.string().oneOf(['moral', 'physical'], 'Please select a valid person type').required('Person type is required'),
     company_name: Yup.string().when('person_type', (person_type: any, schema: any) => {
-      return person_type === 'moral'
+      return person_type.at(0) === 'moral'
         ? schema.required('Company name is required for company type').max(10, 'Company name must be at most 10 characters')
         : schema.optional();
     })
   });
 
+  const handleCratePerson = (values: CreatePersonInterface) => {
+    if (!user) return;
+    const {id} = user;
+    handleCreatePersonRequest(values, id);
+  }
+
+  useEffect(() => {
+    if(error) {
+      setLocalBlocking(true);
+      setTimeout(() => {
+        setLocalBlocking(false);
+      }, 3000);
+    } else if(data) {
+      setLocalBlocking(false);
+      relaodUserInfoAndRedirect();
+    }
+  }, [data, loading, error]);
+
+  const relaodUserInfoAndRedirect = () => {
+    // TODO: Add logic to reload user info and redirect to home page | Reload User Info
+    console.log('Reloading user info and redirecting to home page');
+  }
+
   return (
     <Formik
       initialValues={initValues}
       validationSchema={validationSchema}
-      onSubmit={(val) => console.log(val)}
+      onSubmit={(val) => handleCratePerson(val)}
     >
       {({ errors, touched, setFieldValue, values, dirty }) => (
         <FormikForm>
@@ -87,7 +117,7 @@ const CreatePersonForm = () => {
                     type='text'
                     autoComplete='off'
                     as={Input}
-                    onChange={(e: any) => setFieldValue('first_name', e.target.value)}
+                    onChange={(e: any) => setFieldValue('first_name', `${e.target.value}`.toUpperCase())}
                     invalid={!!(errors.first_name && touched.first_name)}
                   />
 
@@ -120,7 +150,7 @@ const CreatePersonForm = () => {
                     type='text'
                     autoComplete='off'
                     as={Input}
-                    onChange={(e: any) => setFieldValue('last_name', e.target.value)}
+                    onChange={(e: any) => setFieldValue('last_name', `${e.target.value}`.toUpperCase())}
                     invalid={!!(errors.last_name && touched.last_name)}
                   />
 
@@ -137,7 +167,7 @@ const CreatePersonForm = () => {
                     type='text'
                     autoComplete='off'
                     as={Input}
-                    onChange={(e: any) => setFieldValue('second_last_name', e.target.value)}
+                    onChange={(e: any) => setFieldValue('second_last_name', `${e.target.value}`.toUpperCase())}
                     invalid={!!(errors.second_last_name && touched.second_last_name)}
                   />
 
@@ -227,7 +257,7 @@ const CreatePersonForm = () => {
                     type='text'
                     autoComplete='off'
                     as={Input}
-                    onChange={(e: any) => setFieldValue('curp', e.target.value)}
+                    onChange={(e: any) => setFieldValue('curp', `${e.target.value}`.toUpperCase())}
                     invalid={!!(errors.curp && touched.curp)}
                   />
 
@@ -244,7 +274,7 @@ const CreatePersonForm = () => {
                     type='text'
                     autoComplete='off'
                     as={Input}
-                    onChange={(e: any) => setFieldValue('rfc', e.target.value)}
+                    onChange={(e: any) => setFieldValue('rfc', `${e.target.value}`.toUpperCase())}
                     invalid={!!(errors.rfc && touched.rfc)}
                   />
 
@@ -321,11 +351,13 @@ const CreatePersonForm = () => {
           </div>
 
           <div className='flex justify-end gap-2'>
-            <Button className='mt-4 bg-red-600'>
-              Cancel
-            </Button>
+            { user && user.person && ( 
+              <Button className='mt-4 bg-red-600'>
+                Cancel
+              </Button>
+            )}
 
-            <Button className='mt-4' type='submit' disabled={!dirty}>
+            <Button className='mt-4' type='submit' disabled={!dirty || localBlocking || loading} title={dirty ? '' : 'No changes to save'}>
               Create Person
             </Button>
           </div>
