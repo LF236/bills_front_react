@@ -7,6 +7,8 @@ import { Sidebar, SidebarBody, SidebarFooter, SidebarHeader, SidebarHeading, Sid
 import { SidebarLayout } from "../components/SidebarLayout"
 import { Link } from "react-router-dom"
 import { useAuth } from "../../auth/hooks/useAuth"
+import { useEffect, useState } from "react"
+import { ComonService } from "../api/comon.service"
 
 const HOME_ICON_SIZE = 20;
 
@@ -16,6 +18,7 @@ export function AppLayout({
 	children: React.ReactNode
 }) {
 	const { user, isPersonExists } = useAuth();
+	const [profileImage, setProfileImage] = useState<string | null>(null);
 	const getFullName = () : string => {
 		if(!user) return '';
 		if(!isPersonExists()) {
@@ -23,6 +26,18 @@ export function AppLayout({
 		}
 		return `${user?.person?.first_name} ${user?.person?.last_name}`;
 	}
+	
+	useEffect(() => {
+		const getImage = async () => {
+			const avatarUrl = user?.avatarUrl || '';
+			const url = await ComonService.getImageWithToken(avatarUrl);
+			console.log(url);
+			setProfileImage(url);
+		}
+		if(user) {
+			getImage();
+		}
+	}, [user]);
 
 	const pathName: string = '/';
 	return (
@@ -34,7 +49,7 @@ export function AppLayout({
 						<Dropdown>
 							<DropdownButton as={NavbarItem}>
 								<Avatar
-									src='https://file.garden/aNa8POjYu0nxNoUR/miron.jpg'
+									src={profileImage}
 									alt="User avatar"
 								/>
 							</DropdownButton>
@@ -51,7 +66,7 @@ export function AppLayout({
 						<Dropdown>
 							<DropdownButton as={SidebarItem}>
 								<Avatar
-									src='https://file.garden/aNa8POjYu0nxNoUR/miron.jpg'
+									src={profileImage}
 									alt="User avatar"
 								/>
 								<SidebarLabel>{getFullName()}</SidebarLabel>
@@ -139,7 +154,7 @@ export function AppLayout({
 						<Dropdown>
 							<DropdownButton as={SidebarItem}>
 								<span className='flex min-w-0 items-center gap-3'>
-									<Avatar src='https://file.garden/aNa8POjYu0nxNoUR/miron.jpg' alt="User avatar" className='size-10' square />
+									<Avatar src={profileImage} alt="User avatar" className='size-10' square />
 									<span className='min-w-p'>
 										<span className='block truncate text-sm/5 font-medium text-zinc-950 dark:text-white'>{ (user)!.name }</span>
 										<span className='block truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400'>

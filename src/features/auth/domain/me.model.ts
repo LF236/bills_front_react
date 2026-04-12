@@ -4,4 +4,5 @@ export interface Me {
   email: string;
   is_active: boolean;
   person: any | null;
+  avatarUrl: string | null;
 }

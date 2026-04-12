@@ -7,6 +7,7 @@ export const GET_ME_QUERY = gql`
       name
       email
       is_active
+      avatarUrl
       person {
         id
         last_name
