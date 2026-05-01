@@ -16,6 +16,8 @@ interface AuthState {
 	setMe: (user: Me) => void;
 	cleanMe: () => void;
 	setIsAuthLoading: (isLoading: boolean) => void;
+	profileImageUrl: string | null;
+	setProfileImageUrl: (url: string | null) => void;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -25,6 +27,7 @@ export const useAuthStore = create<AuthState>()(
 				user: null,
 				isAuthenticated: false,
 				isLoading: true,
+				profileImageUrl: null,
 				login: async (userData: { email: string, password: string }) => {
 					set({ isLoading: true });
 					try {
@@ -81,6 +84,8 @@ export const useAuthStore = create<AuthState>()(
 				setIsAuthenticated: (isAuthenticated: boolean) => set(() => ({ isAuthenticated })),
 
 				setIsAuthLoading: (isLoading: boolean) => set(() => ({ isLoading })),
+
+				setProfileImageUrl: (url: string | null) => set(() => ({ profileImageUrl: url }))
 			}), { name: 'auth' }
 		)
 	)

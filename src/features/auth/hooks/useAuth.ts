@@ -18,7 +18,9 @@ export function useAuth() {
     const isLoading = useAuthStore(state => state.isLoading);
     const [ token, setToken ] = useState<string | null>(null);
     const { getMe, data, loading, error, called } = useGetMe();
-    const [ isReloadingMe, setIsReloadingMe ] = useState(false); 
+    const [ isReloadingMe, setIsReloadingMe ] = useState(false);
+    const { profileImageUrl, setProfileImageUrl } = useAuthStore(state => state);
+    
 
     const isPersonExists = (): boolean => {
         const { person } = user as Me;
@@ -82,6 +84,8 @@ export function useAuth() {
         cleanMe,
         isLoading,
         isPersonExists,
-        handleReloadMe
+        handleReloadMe,
+        profileImageUrl,
+        setProfileImageUrl
     }
 }

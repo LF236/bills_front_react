@@ -16,9 +16,13 @@ export function AccountDropdownMenu({
 		navigate('/auth/login');
 	}
 
+	const handleNavigateTo = (route: string) : void => {
+		navigate(route);
+	}
+
 	return (
 		<DropdownMenu className="min-w-64" anchor={anchor}>
-			<DropdownItem href="#">
+			<DropdownItem onClick={() => handleNavigateTo('/account')}>
 				<UserCircleIcon />
 				<DropdownLabel>My account</DropdownLabel>
 			</DropdownItem>

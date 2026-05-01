@@ -17,8 +17,8 @@ export function AppLayout({
 }: {
 	children: React.ReactNode
 }) {
-	const { user, isPersonExists } = useAuth();
-	const [profileImage, setProfileImage] = useState<string | null>(null);
+	const { user, isPersonExists, profileImageUrl, setProfileImageUrl } = useAuth();
+
 	const getFullName = () : string => {
 		if(!user) return '';
 		if(!isPersonExists()) {
@@ -28,11 +28,11 @@ export function AppLayout({
 	}
 	
 	useEffect(() => {
+		// TODO: Refactor this
 		const getImage = async () => {
 			const avatarUrl = user?.avatarUrl || '';
 			const url = await ComonService.getImageWithToken(avatarUrl);
-			console.log(url);
-			setProfileImage(url);
+			setProfileImageUrl(url);
 		}
 		if(user) {
 			getImage();
@@ -49,7 +49,7 @@ export function AppLayout({
 						<Dropdown>
 							<DropdownButton as={NavbarItem}>
 								<Avatar
-									src={profileImage}
+									src={profileImageUrl}
 									alt="User avatar"
 								/>
 							</DropdownButton>
@@ -66,7 +66,7 @@ export function AppLayout({
 						<Dropdown>
 							<DropdownButton as={SidebarItem}>
 								<Avatar
-									src={profileImage}
+									src={profileImageUrl}
 									alt="User avatar"
 								/>
 								<SidebarLabel>{getFullName()}</SidebarLabel>
@@ -74,15 +74,9 @@ export function AppLayout({
 							</DropdownButton>
 
 							<DropdownMenu className='min-w-80 lg:min-w-64' anchor='bottom start'>
-								<DropdownItem href='settings'>
-									<Cog8ToothIcon />
-									<DropdownLabel>Settings</DropdownLabel>
-								</DropdownItem>
-								<DropdownDivider />
-
 								<DropdownItem href="#">
 									<Avatar slot="icon" initials="BE" className="bg-purple-500 text-white" />
-									<DropdownLabel>Big Events</DropdownLabel>
+									<DropdownLabel>Notifications</DropdownLabel>
 								</DropdownItem>
 								<DropdownDivider />
 							</DropdownMenu>
@@ -154,7 +148,7 @@ export function AppLayout({
 						<Dropdown>
 							<DropdownButton as={SidebarItem}>
 								<span className='flex min-w-0 items-center gap-3'>
-									<Avatar src={profileImage} alt="User avatar" className='size-10' square />
+									<Avatar src={profileImageUrl} alt="User avatar" className='size-10' square />
 									<span className='min-w-p'>
 										<span className='block truncate text-sm/5 font-medium text-zinc-950 dark:text-white'>{ (user)!.name }</span>
 										<span className='block truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400'>

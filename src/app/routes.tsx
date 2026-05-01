@@ -16,6 +16,7 @@ import UsersEditPage from '../pages/users/users-edit-page'
 import { GraphQLProvider } from './GraphQLProvider'
 import PersonEditPage from '../pages/person/person-edit-page'
 import RequirePersonRoute from './routes/RequirePersonRoute'
+import AccountPage from '../pages/users/account-page'
 
 export const AppRouter = () => {
 	return (
@@ -34,6 +35,8 @@ export const AppRouter = () => {
 						<Route path='/roles/create' element={ <RoleCreatePage /> } />
 						<Route path='/users' element={ <UsersPage /> } /> 
 						<Route path='/users/:id' element={ <UsersEditPage /> } />
+
+						<Route path='/account' element={ <AccountPage /> } />
 						<Route path='/home' element={ <HomePage /> } />
 					</Route>
 					
