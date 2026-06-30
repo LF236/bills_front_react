@@ -1,16 +1,11 @@
-import { Formik, Form as FormikForm } from "formik";
-import { Button } from "../../../../common/components/button";
-import { Text } from "../../../../common/components/text";
-import { useAlertStore } from "../../../../common/store/useAlertStore";
-import { useUserStore } from "../../../hooks/useUsersStore";
+import { Formik, Form as FormikForm } from 'formik';
+import { Button } from '../../../../common/components/button';
+import { Text } from '../../../../common/components/text';
+import { useAlertStore } from '../../../../common/store/useAlertStore';
+import { useUserStore } from '../../../hooks/useUsersStore';
 
 const ChangeUserStatusForm = () => {
-  const {
-    selectedUser,
-    closeUserStatusModal,
-    setUserStatusOverride,
-    userStatusOverride,
-  } = useUserStore();
+  const { selectedUser,closeUserStatusModal,setUserStatusOverride,userStatusOverride } = useUserStore();
 
   const addAlert = useAlertStore((state) => state.addAlert);
 
@@ -29,9 +24,9 @@ const ChangeUserStatusForm = () => {
     setUserStatusOverride(selectedUser.id, newStatus);
 
     addAlert({
-      title: "User Status Updated",
-      subtitle: `User is now ${newStatus ? "active" : "inactive"}.`,
-      type: "success",
+      title: 'User Status Updated',
+      subtitle: `User is now ${newStatus ? 'active' : 'inactive'}.`,
+      type: 'success',
       showButtonClose: false,
       isWithTimeToClose: true,
       timeToClose: 3000,
@@ -44,20 +39,20 @@ const ChangeUserStatusForm = () => {
   return (
     <Formik initialValues={{}} onSubmit={handleSubmit}>
       <FormikForm>
-        <Text className="text-white text-sm">
-          Change user status "{selectedUser.name}"?
+        <Text className='text-white text-sm'>
+          Change user status {selectedUser.name}?
         </Text>
 
-        <div className="flex justify-end gap-2 mt-4">
+        <div className='flex justify-end gap-2 mt-4'>
           <Button
-            type="button"
-            className="mt-4 bg-red-600 t"
+            type='button'
+            className='mt-4 bg-red-600 t'
             onClick={handleCancel}
           >
             Cancel
           </Button>
 
-          <Button type="submit" className="mt-4">
+          <Button type='submit' className='mt-4'>
             Confirm
           </Button>
         </div>

@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import type { User } from "../domain/user.model";
+import { create } from 'zustand';
+import type { User } from '../domain/user.model';
 
 interface UsersStore {
   search: string;
@@ -27,7 +27,7 @@ interface UsersStore {
 }
 
 export const useUserStore = create<UsersStore>((set) => ({
-  search: "",
+  search: '',
   offset: 0,
   limit: 10,
   selectedUser: null,
@@ -59,10 +59,12 @@ export const useUserStore = create<UsersStore>((set) => ({
   setSearch: (search: string) => set({ search }),
   setOffset: (offset: number) => set({ offset }),
   setLimit: (limit: number) => set({ limit }),
-  nextPage: () => set((state) => ({ offset: state.offset + state.limit })),
-  previousPage: () =>
-    set((state) => ({ offset: Math.max(state.offset - state.limit, 0) })),
-  moveByPagination: (pageNumber: number) =>
-    set((state) => ({ offset: pageNumber * state.limit })),
-  reset: () => set({ search: "", offset: 0, limit: 10 }),
+
+  nextPage: () => set((state) => ({ offset: state.offset + 
+state.limit })),
+  previousPage: () => set((state) => ({ offset: 
+Math.max(state.offset - state.limit, 0) })),
+  moveByPagination: (pageNumber: number) => set((state) => ({ 
+offset: pageNumber * state.limit })),
+  reset: () => set({ search: '', offset: 0, limit: 10 }),
 }));

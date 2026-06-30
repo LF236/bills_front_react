@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useAlertStore } from "../../common/store/useAlertStore";
+import { useState } from 'react';
+import { useAlertStore } from '../../common/store/useAlertStore';
 
 export const useChangeUserStatus = () => {
   const [loading, setLoading] = useState(false);
@@ -15,9 +15,9 @@ export const useChangeUserStatus = () => {
       await new Promise((resolve) => setTimeout(resolve, 500));
 
       addAlert({
-        title: "User Status Updated",
-        subtitle: `User is now ${isActive ? "active" : "inactive"}.`,
-        type: "success",
+        title: 'User Status Updated',
+        subtitle: `User is now ${isActive ? 'active' : 'inactive'}.`,
+        type: 'success',
         showButtonClose: false,
         isWithTimeToClose: true,
         timeToClose: 3000,
@@ -27,9 +27,9 @@ export const useChangeUserStatus = () => {
       return true;
     } catch (error) {
       addAlert({
-        title: "Error Updating User",
-        subtitle: "An error occurred while updating the user status.",
-        type: "error",
+        title: 'Error Updating User',
+        subtitle: 'An error occurred while updating the user status.',
+        type: 'error',
         showButtonClose: true,
         isWithTimeToClose: true,
         timeToClose: 3000,

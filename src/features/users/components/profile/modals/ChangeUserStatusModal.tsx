@@ -1,10 +1,6 @@
-import {
-  Dialog,
-  DialogBody,
-  DialogTitle,
-} from "../../../../common/components/dialog";
-import { useUserStore } from "../../../hooks/useUsersStore";
-import ChangeUserStatusForm from "../forms/ChangeUserStatusForm";
+import { Dialog,DialogBody,DialogTitle } from '../../../../common/components/dialog';
+import { useUserStore } from '../../../hooks/useUsersStore';
+import ChangeUserStatusForm from '../forms/ChangeUserStatusForm';
 
 const ChangeUserStatusModal = () => {
   const { isUserStatusModalOpen, selectedUser } = useUserStore();
