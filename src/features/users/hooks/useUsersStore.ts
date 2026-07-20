@@ -13,10 +13,6 @@ interface UsersStore {
   openUserStatusModal: () => void;
   closeUserStatusModal: () => void;
 
-  userStatusOverride: Record<string, boolean>;
-
-  setUserStatusOverride: (userId: string, isActive: boolean) => void;
-
   setSearch: (search: string) => void;
   setOffset: (offset: number) => void;
   setLimit: (limit: number) => void;
@@ -35,7 +31,6 @@ export const useUserStore = create<UsersStore>((set) => ({
   setSelectedUser: (user: User | null) => set({ selectedUser: user }),
 
   isUserStatusModalOpen: false,
-  userStatusOverride: {},
 
   openUserStatusModal: () =>
     set((state) => ({
@@ -47,14 +42,6 @@ export const useUserStore = create<UsersStore>((set) => ({
       isUserStatusModalOpen: false,
       selectedUser: null,
     }),
-
-  setUserStatusOverride: (userId: string, isActive: boolean) =>
-    set((state) => ({
-      userStatusOverride: {
-        ...state.userStatusOverride,
-        [userId]: isActive,
-      },
-    })),
 
   setSearch: (search: string) => set({ search }),
   setOffset: (offset: number) => set({ offset }),

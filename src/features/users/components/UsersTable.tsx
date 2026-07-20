@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 
 const UsersTable = () => {
   const {search,setSearch,reset,nextPage,
-    offset,limit,previousPage,setLimit,moveByPagination,setSelectedUser,openUserStatusModal,userStatusOverride } = useUserStore();
+    offset,limit,previousPage,setLimit,moveByPagination,setSelectedUser,openUserStatusModal } = useUserStore();
 
   const [localSearch, setLocalSearch] = useState('');
   const { getUsers, loading, error, userList, total } = useGetUsers();
@@ -82,7 +82,7 @@ const UsersTable = () => {
                   {user.name}
                 </TableCell>
                 <TableCell>{user.email}</TableCell>
-                <TableCell>{(userStatusOverride)[user.id] ?? user.is_active ? 'Yes' : 'No'}</TableCell>
+                <TableCell>{ user.is_active ? 'Yes' : 'No'}</TableCell>
                 <TableCell>{user.roles.map(role => role.name).join(', ')}</TableCell>
                 <TableCell>
                   <PencilSquareIcon 

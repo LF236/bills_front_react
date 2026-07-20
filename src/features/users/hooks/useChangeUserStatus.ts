@@ -1,18 +1,22 @@
-import { useState } from 'react';
 import { useAlertStore } from '../../common/store/useAlertStore';
+import { useMutation } from '@apollo/client/react';
+import { TOGGLE_USER_STATUS_MUTATION } from '../api/users.mutations';
 
 export const useChangeUserStatus = () => {
-  const [loading, setLoading] = useState(false);
   const addAlert = useAlertStore((state) => state.addAlert);
+  const [toggleUserStatus ,{loading}] = useMutation(TOGGLE_USER_STATUS_MUTATION);
 
   const handleChangeUserStatus = async (userId: string, isActive: boolean) => {
     try {
-      setLoading(true);
 
-      // TODO:
-      //Reempalzar cuando el backend exponga updateUser/changeUserStatus.
-
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await toggleUserStatus ({
+        variables: {
+          input:{
+            id:userId,
+            status: isActive,
+          },
+        },
+      });
 
       addAlert({
         title: 'User Status Updated',
@@ -25,7 +29,7 @@ export const useChangeUserStatus = () => {
       });
 
       return true;
-    } catch (error) {
+    } catch {
       addAlert({
         title: 'Error Updating User',
         subtitle: 'An error occurred while updating the user status.',
@@ -37,8 +41,6 @@ export const useChangeUserStatus = () => {
       });
 
       return false;
-    } finally {
-      setLoading(false);
     }
   };
 

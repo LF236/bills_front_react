@@ -1,39 +1,32 @@
 import { Formik, Form as FormikForm } from 'formik';
 import { Button } from '../../../../common/components/button';
 import { Text } from '../../../../common/components/text';
-import { useAlertStore } from '../../../../common/store/useAlertStore';
 import { useUserStore } from '../../../hooks/useUsersStore';
+import { useChangeUserStatus } from '../../../hooks/useChangeUserStatus';
 
 const ChangeUserStatusForm = () => {
-  const { selectedUser,closeUserStatusModal,setUserStatusOverride,userStatusOverride } = useUserStore();
-
-  const addAlert = useAlertStore((state) => state.addAlert);
+  const { selectedUser,closeUserStatusModal} = useUserStore();
+  const { handleChangeUserStatus ,loading} = useChangeUserStatus();
+  
 
   const handleCancel = () => {
     closeUserStatusModal();
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async() => {
     if (!selectedUser) return;
 
-    const currentStatus =
-      userStatusOverride[selectedUser.id] ?? selectedUser.is_active;
 
-    const newStatus = !currentStatus;
 
-    setUserStatusOverride(selectedUser.id, newStatus);
+    const newStatus = !selectedUser.is_active;
 
-    addAlert({
-      title: 'User Status Updated',
-      subtitle: `User is now ${newStatus ? 'active' : 'inactive'}.`,
-      type: 'success',
-      showButtonClose: false,
-      isWithTimeToClose: true,
-      timeToClose: 3000,
-      id: crypto.randomUUID(),
-    });
-
+    const success = await handleChangeUserStatus(
+      selectedUser.id,
+      newStatus
+    );
+    if(success){
     closeUserStatusModal();
+    }
   };
   if (!selectedUser) return null;
   return (
@@ -52,8 +45,8 @@ const ChangeUserStatusForm = () => {
             Cancel
           </Button>
 
-          <Button type='submit' className='mt-4'>
-            Confirm
+          <Button type='submit' className='mt-4' disabled= {loading}>
+            {loading ? 'saving' : 'confirm'}
           </Button>
         </div>
       </FormikForm>
