@@ -9,7 +9,7 @@ const ChangeUserStatusModal = () => {
 
   return (
     <Dialog open={isUserStatusModalOpen} onClick={() => {}} onClose={() => {}}>
-      <DialogTitle>Change status</DialogTitle>
+      <DialogTitle>{selectedUser.is_active ? `Deactivate user` : `Activate user`}</DialogTitle>
       <DialogBody>
         <ChangeUserStatusForm />
       </DialogBody>

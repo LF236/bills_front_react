@@ -33,7 +33,10 @@ const ChangeUserStatusForm = () => {
     <Formik initialValues={{}} onSubmit={handleSubmit}>
       <FormikForm>
         <Text className='text-white text-sm'>
-          Change user status {selectedUser.name}?
+          {selectedUser.is_active
+          ?`Are you sure you want to deactivate ${selectedUser.name} ?` 
+          : `Are you sure you want to activate ${selectedUser.name} ?`
+          }
         </Text>
 
         <div className='flex justify-end gap-2 mt-4'>
