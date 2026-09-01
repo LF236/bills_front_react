@@ -6,7 +6,7 @@ import { mapUsersRequestToModel } from '../api/mapUsersRequestToModel';
 
 export const useGetUsers = () => {
   const { search, offset, limit } = useUserStore();
-  const [ getUsersQuery, { loading, data, error, called }] = useLazyQuery(GET_USERS_QUERY, {
+  const [ getUsersQuery, { loading, data, error, called,refetch}] = useLazyQuery(GET_USERS_QUERY, {
     fetchPolicy: 'network-only'
   })
   const [ userList, setUserList ] = useState([]);
@@ -37,6 +37,7 @@ export const useGetUsers = () => {
     userList,
     total,
     getUsers,
+    refetch,
     loading,
     error: error || null,
   }

@@ -2,18 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { Input } from '../../common/components/input';
 import { useUserStore } from '../hooks/useUsersStore';
 import { Button } from '../../common/components/button';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../common/components/table';
+import { Table,TableBody,TableCell,TableHead,TableHeader,TableRow} from '../../common/components/table';
 import PaginationComponent from '../../common/components/pagination/PaginationComponent';
 import { useGetUsers } from '../hooks/useGetUsers';
+import ChangeUserStatusModal from './profile/modals/ChangeUserStatusModal';
 import type { User } from '../domain/user.model';
 import { PencilSquareIcon, XCircleIcon } from '@heroicons/react/16/solid';
 import { useNavigate } from 'react-router-dom';
 
 const UsersTable = () => {
-  const {search, setSearch, reset, nextPage, 
-    offset, limit, previousPage, setLimit, moveByPagination} = useUserStore();
+  const {search,setSearch,reset,nextPage,
+    offset,limit,previousPage,setLimit,moveByPagination,setSelectedUser,openUserStatusModal } = useUserStore();
+
   const [localSearch, setLocalSearch] = useState('');
-  const {getUsers, loading, error, userList, total} = useGetUsers();
+  const { getUsers, loading, error, userList, total } = useGetUsers();
   const navigate = useNavigate();
 
   const handleReset = () => {
@@ -24,6 +26,11 @@ const UsersTable = () => {
   const handleOpenEditUser = (id: string) => {
     navigate(`/users/${id}`);
   }
+
+  const handleOpenStatusModal = (user: User) => {
+    setSelectedUser(user);
+    openUserStatusModal();
+  };
 
   useEffect(() => {
     getUsers();
@@ -42,8 +49,8 @@ const UsersTable = () => {
           value={localSearch}
           onChange={(e) => setLocalSearch(e.target.value)}
           onKeyDown={(e) => {
-            if(e.key === 'Enter') {
-              if(e.currentTarget.value.trim() === '') {
+            if (e.key === 'Enter') {
+              if (e.currentTarget.value.trim() === '') {
                 setSearch('');
               } else {
                 setSearch(e.currentTarget.value);
@@ -75,7 +82,7 @@ const UsersTable = () => {
                   {user.name}
                 </TableCell>
                 <TableCell>{user.email}</TableCell>
-                <TableCell>{user.is_active ? 'Yes' : 'No'}</TableCell>
+                <TableCell>{ user.is_active ? 'Yes' : 'No'}</TableCell>
                 <TableCell>{user.roles.map(role => role.name).join(', ')}</TableCell>
                 <TableCell>
                   <PencilSquareIcon 
@@ -83,15 +90,14 @@ const UsersTable = () => {
                     onClick={() => handleOpenEditUser(user.id)}
                   />
 
-                  <XCircleIcon
-                    className='inline w-5 h-5 text-red-500 cursor-pointer' 
-                    // onClick={() => handleChangeIfRolToUpdateOrDelete(rol.id, rol)}
-                  />
-              
-                </TableCell>
-              </TableRow>
-            )) }
-          </TableBody>
+                <XCircleIcon
+                  className='inline w-5 h-5 text-red-500 cursor-pointer'
+                  onClick={() => handleOpenStatusModal(user)}
+                />
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
       </Table>
 
       <PaginationComponent
@@ -103,8 +109,9 @@ const UsersTable = () => {
         moveByPagination={moveByPagination}
         total={total}
       />
+      <ChangeUserStatusModal />
     </>
   );
-}
+};
 
 export default UsersTable;
