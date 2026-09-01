@@ -16,14 +16,8 @@ export const useGetLogs = () => {
     
     useEffect(()=>{
         if(called && data && !loading){
-            console.log('Respuesta de los logs',data)
             const {logs} = data as any;
-            console.log('Logs', logs);
             const {items = [], total = 0} = logs as any; 
-
-            console.log('Item', items),
-            console.log('Total' , total)
-
             const parsedItems = items.map((item: any) => 
             mapLogsRequestToModel(item));
 
@@ -33,10 +27,6 @@ export const useGetLogs = () => {
     }, [called,data,loading]);
 
     const getLogs = ()=>{
-        //TODO ELIMINAR 
-        console.log('Obtencion de variables de logs',{
-            search,action,module,offset,limit,paginate:true
-        });
         getLogsQuery({
             variables: {
                 search,

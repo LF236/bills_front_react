@@ -25,6 +25,7 @@ export const LogsTable = () => {
             month:'short',
             year:'numeric',
             hour:'2-digit',
+            minute:'2-digit',
             hour12: false
         }).format(date)
     }
@@ -126,8 +127,8 @@ export const LogsTable = () => {
       <PaginationComponent
       offset={offset}
       limit={limit}
-      next={nextPage || (()=>{})}
-      previous={previousPage || (()=> {})}
+      next={nextPage}
+      previous={previousPage}
       setLimit={setLimit}
       moveByPagination={moveByPagination}
       total={total}/>
