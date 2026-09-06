@@ -63,10 +63,11 @@ export const LogsTable = () => {
         }}/>
 
         <SelectField 
-        label='action'
+        label='Action'
         value={action}
         onChange={(e) => setAction(e.target.value)}
-        className='w-full sm:w-48'>
+        className='w-full sm:w-48'
+        selectClassName='!bg-white !text-zinc-900 !border-gray-200 focus:!border-zinc-400 focus:!ring-zinc-400 dark:!bg-gray-900 dark:!text-white dark:!border-gray-600 dark:focus:!border-gray-400 dark:focus:!ring-gray-400'>
             <option value=''>All actions</option>
 
             {actionOptions.map((option)=>(
@@ -75,10 +76,11 @@ export const LogsTable = () => {
         </SelectField>
 
         <SelectField
-        label='module'
+        label='Module'
         value={module}
         onChange={(e) => setModule (e.target.value)}
-        className='w-full sm:w-48'>
+        className='w-full sm:w-48'
+        selectClassName='!bg-white !text-zinc-900 !border-gray-200 focus:!border-zinc-400 focus:!ring-zinc-400 dark:!bg-gray-900 dark:!text-white dark:!border-gray-600 dark:focus:!border-gray-400 dark:focus:!ring-gray-400'>
             <option value=''>All modules</option>
             {moduleOptions.map((option) => (
                 <option key={option} value={option}>{option}</option>

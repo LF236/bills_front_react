@@ -8,7 +8,7 @@ function Label({ id, children }: { id: string; children: React.ReactNode }) {
     return (
         <label
             htmlFor={id}
-            className="mb-2 block text-sm font-semibold text-white"
+            className="mb-2 block text-sm font-semibold text-zinc-900 dark:text-white"
         >
             {children}
         </label>
@@ -34,14 +34,15 @@ export function TextField({
 export function SelectField({
     label,
     className,
+    selectClassName,
     ...props
-}: Omit<React.ComponentPropsWithoutRef<'select'>, 'id'> & { label?: string }) {
+}: Omit<React.ComponentPropsWithoutRef<'select'>, 'id'> & { label?: string , selectClassName?:string}) {
     let id = useId()
 
     return (
         <div className={className}>
             {label && <Label id={id}>{label}</Label>}
-            <select id={id} {...props} className={clsx(formClasses, 'pr-8')} />
+            <select id={id} {...props} className={clsx(formClasses, 'pr-8', selectClassName)} />
         </div>
     )
 }
