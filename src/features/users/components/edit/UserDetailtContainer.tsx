@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Badge } from '../../../common/components/badge';
 import UserDetailPersonalInformation from './UserDetailPersonalInformation';
 import UserDetailRols from './UserDetailRols';
@@ -28,18 +28,13 @@ const tabs = [
 
 const UserDetailtContainer = () => {
   const [currentTab, setCurrentTab] = useState('General Information');
-  const [renderElement, setRenderElement] = useState(<></>);
 
   const handleTabChange = (tab: string) => {
     if(!tab) return;
     setCurrentTab(tab);
   }
 
-  useEffect(() => {
-    const newElement = tabs.find(item => item.name === currentTab);
-    if(!newElement || newElement.item === null) return;
-    setRenderElement(newElement.item);
-  }, [currentTab]);
+  const ActiveComponent = tabs.find(t => t.name === currentTab)?.item ?? null;
 
   return (
     <div className='min-h-screen flex items-start justify-center py-10'>
@@ -80,10 +75,10 @@ const UserDetailtContainer = () => {
                   return (
                     <>
                       {visible.map(item => (
-                        <Badge key={item} color='indigo' className='mr-1'>{item}</Badge>
+                        <Badge key={item} color='indigo' className='mr-1 !w-auto'>{item}</Badge>
                       ))}
                       {extra > 0 && (
-                        <Badge color='indigo' className='mr-1'>+{extra}</Badge>
+                        <Badge color='indigo' className='mr-1 !w-auto'>+{extra}</Badge>
                       )}
                     </>
                   );
@@ -116,7 +111,7 @@ const UserDetailtContainer = () => {
           </div>
 
           <div className="bg-zinc-900 rounded-xl border border-slate-700 p-6 space-y-4 mt-2 animate-in fade-in duration-300">
-            {renderElement}
+            {ActiveComponent && <ActiveComponent />}
           </div>
         </div>
       </div>
