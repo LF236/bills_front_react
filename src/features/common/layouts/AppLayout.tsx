@@ -127,6 +127,12 @@ export function AppLayout({
 									Permission Managment
 								</SidebarItem>
 							</Link>
+
+							<Link to='/logs' key='logs'>
+								<SidebarItem>
+									Logs
+								</SidebarItem>
+							</Link>
 						</SidebarSection>
 
 						<SidebarSpacer />
