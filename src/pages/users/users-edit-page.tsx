@@ -1,10 +1,11 @@
 import React from 'react';
+import UserDetailtContainer from '../../features/users/components/edit/UserDetailtContainer';
 
 const UsersEditPage = () => {
   return (
-    <div>
-      <h1>HOLA</h1>
-    </div>
+    <>
+      <UserDetailtContainer />
+    </>
   )
 }
 
