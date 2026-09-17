@@ -42,7 +42,7 @@ export function Badge({ color = 'zinc', className, ...props }: BadgeProps & Reac
       {...props}
       className={clsx(
         className,
-        'inline-flex items-center gap-x-1.5 rounded-md px-1.5 py-0.5 text-sm/5 font-medium sm:text-xs/5 forced-colors:outline',
+        'inline-flex w-15 items-center justify-center gap-x-1.5 rounded-md px-1.5 py-0.5 text-sm/5 font-medium sm:text-xs/5 forced-colors:outline',
         colors[color]
       )}
     />
@@ -68,15 +68,13 @@ export const BadgeButton = forwardRef(function BadgeButton(
 
   return typeof props.href === 'string' ? (
     <Link {...props} className={classes} ref={ref as React.ForwardedRef<HTMLAnchorElement>}>
-      <TouchTarget>
+      
         <Badge color={color}>{children}</Badge>
-      </TouchTarget>
     </Link>
   ) : (
     <Headless.Button {...props} className={classes} ref={ref}>
-      <TouchTarget>
         <Badge color={color}>{children}</Badge>
-      </TouchTarget>
+      
     </Headless.Button>
   )
 })
