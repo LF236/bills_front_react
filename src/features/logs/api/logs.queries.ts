@@ -25,3 +25,31 @@ export const GET_CATALOG_LOGS_QUERY = gql`
         }
     }
 `;
+
+export const GET_LOG_QUERY = gql`
+    query Log($id : ID!){
+        log(id: $id){
+            id
+            user_id
+            user_name
+            action
+            module
+            resource
+            description
+            result
+            created_at
+            method_http
+            route
+            ip
+            user_agent
+            browser
+            browser_version
+            os
+            device
+            request_id
+            duration
+            message_error
+            metadata
+        }
+    }
+`;
