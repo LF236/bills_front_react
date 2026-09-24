@@ -17,3 +17,20 @@ export const GET_USERS_QUERY = gql`
     }
   }
 `;
+
+export const GET_USER_QUERY = gql`
+  query User($id: String!) {
+    user(id: $id) {
+      id
+      name
+      email
+      is_active
+      avatarUrl
+      created_at
+      roles {
+        id
+        name
+      }
+    }
+  }
+`;

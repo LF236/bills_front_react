@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Badge } from '../../../common/components/badge';
 import { Button } from '../../../common/components/button';
 import { Input } from '../../../common/components/input';
+import type { TabComponentProps } from './UserDetailtContainer';
 
 type AvailableRol = {
   key: string;
@@ -14,7 +15,7 @@ const availableRols: AvailableRol[] = [
   { key: 'user_admin', label: 'user_admin', description: 'Administración de usuarios del sistema' },
 ];
 
-const UserDetailRols = () => {
+const UserDetailRols = ({ user }: TabComponentProps) => {
   const rols = ['admin', 'user_admin'];
   const [selectedRols, setSelectedRols] = useState<string[]>([]);
 
