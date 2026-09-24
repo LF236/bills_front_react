@@ -9,11 +9,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '.
 import type { Log } from '../domain/log.model';
 import PaginationComponent from '../../common/components/pagination/PaginationComponent';
 import { Badge } from '../../common/components/badge';
+import { Link } from '../../common/components/link';
 
 export const LogsTable = () => {
     const {search,action,module,offset,limit,setSearch, setAction, setModule,reset,nextPage,previousPage,setLimit,moveByPagination} = useLogsStore();
     const [localSearch, setLocalSearch] = useState('');
-
     const {logList, total, getLogs, loading, error} = useGetLogs();
 
     const {actionOptions,moduleOptions} = useGetCatalogLogs();
@@ -108,7 +108,9 @@ export const LogsTable = () => {
         <TableBody>
             {logList.map((log:Log) => (
                 <TableRow key={log.id}>
-                    <TableCell>{log.id.slice(0,8)}</TableCell>
+                    <TableCell>
+                        <Link href={`/logs/${log.id}`}>{log.id.slice(0,8)}</Link>
+                    </TableCell>
 
                     <TableCell>{log.user_name ?? 'System'}</TableCell>
 
