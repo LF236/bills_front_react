@@ -19,7 +19,7 @@ const tabs: { name: string; active: boolean; item: React.ComponentType<TabCompon
   },
   {
     name: 'Rols',
-    active: false,
+    active: true,
     item: UserDetailRols
   },
   {

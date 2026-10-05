@@ -5,6 +5,7 @@ interface RolsStore {
   search: string;
   offset: number;
   limit: number;
+  all: {id: string, name: string}[];
   setSearch: (search: string) => void;
   setOffset: (offset: number) => void;
   setLimit: (limit: number) => void;
@@ -18,12 +19,14 @@ interface RolsStore {
   setRolToUpdateOrDelete: (rol: Rol | null) => void;
   isOpenModalToDelete: boolean;
   setIsOpenModalToDelete: (isOpen: boolean) => void;
+  setAllJustIdAndName: (all: {id: string, name: string}[]) => void;
 }
 
 export const useRolsStore = create<RolsStore>((set) => ({
   search: '',
   offset: 0,
   limit: 10,
+  all: [],
   setSearch: (search: string) => set({ search }),
   setOffset: (offset: number) => set({ offset }),
   setLimit: (limit: number) => set({ limit }),
@@ -38,4 +41,5 @@ export const useRolsStore = create<RolsStore>((set) => ({
   setRolToUpdateOrDelete: (rol: Rol | null) => set(() => ({ rolToUpdateOrDelete: rol })),
   isOpenModalToDelete: false,
   setIsOpenModalToDelete: (isOpen: boolean) => set(() => ({ isOpenModalToDelete: isOpen })),
+  setAllJustIdAndName: (all: {id: string, name: string}[]) => set(() => ({ all }))
 }));
