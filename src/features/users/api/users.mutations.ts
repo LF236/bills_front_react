@@ -10,3 +10,16 @@ export const TOGGLE_USER_STATUS_MUTATION = gql`
         }
     }
 `;
+
+export const UPDATE_USER_ROLES_MUTATION = gql`
+    mutation UpdateUserRoles($updateUserRolesInput: UpdateUserRolesInput!) {
+        updateUserRoles(updateUserRolesInput: $updateUserRolesInput) {
+            id
+            name
+            roles {
+                id
+                name
+            }
+        }
+    }
+`;

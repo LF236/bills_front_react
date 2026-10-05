@@ -34,3 +34,12 @@ export const GET_ROL_BY_ID_QUERY = gql`
     }
   }
 `;
+
+export const GET_ALL_NAME_ID_QUERY = gql`
+  query GetAllRolsWithNameId {
+    allRolsWithIdName {
+      id
+      name
+    }
+  }
+`;

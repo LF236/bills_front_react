@@ -20,6 +20,10 @@ interface UsersStore {
   nextPage: () => void;
   previousPage: () => void;
   moveByPagination: (pageNumber: number) => void;
+  infoUser: {
+    loading: boolean,
+    setLoadingStatus: (state: boolean) => void;
+  }
 }
 
 export const useUserStore = create<UsersStore>((set) => ({
@@ -27,6 +31,10 @@ export const useUserStore = create<UsersStore>((set) => ({
   offset: 0,
   limit: 10,
   selectedUser: null,
+  infoUser: {
+    loading: false,
+    setLoadingStatus: (status: boolean) => set((state) => ({ infoUser: { ...state.infoUser, loading: status } }))
+  },
 
   setSelectedUser: (user: User | null) => set({ selectedUser: user }),
 
