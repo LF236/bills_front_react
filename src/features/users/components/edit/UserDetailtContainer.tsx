@@ -6,6 +6,7 @@ import UserDetailRols from './UserDetailRols';
 import { useGetUser } from '../../hooks/useGetUser';
 import type { UserDetailInterface } from '../../domain/user-detail.interface';
 import { ComonService } from '../../../common/api/comon.service';
+import UserDetailSettings from './UserDetailSettings';
 
 export interface TabComponentProps {
   user: UserDetailInterface;
@@ -29,8 +30,8 @@ const tabs: { name: string; active: boolean; item: React.ComponentType<TabCompon
   },
   {
     name: 'Settings',
-    active: false,
-    item: null
+    active: true,
+    item: UserDetailSettings,
   }
 ]
 

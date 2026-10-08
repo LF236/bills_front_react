@@ -19,7 +19,8 @@ export const useGetUser = () => {
         is_active: user.is_active,
         name: user.name,
         roles: user.roles,
-        created_at: user.created_at
+        created_at: user.created_at,
+        verified_at: user.verified_at
       });
     }
   }, [called, data, loading])
