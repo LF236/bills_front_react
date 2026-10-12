@@ -27,6 +27,7 @@ export const GET_USER_QUERY = gql`
       is_active
       avatarUrl
       created_at
+      verified_at
       roles {
         id
         name

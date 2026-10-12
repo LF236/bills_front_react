@@ -23,3 +23,11 @@ export const UPDATE_USER_ROLES_MUTATION = gql`
         }
     }
 `;
+
+export const ADMIN_RESEND_VALIDATION_EMAIL_MUTATION = gql`
+  mutation AdminResendValitationEmail($userId: String!) {
+    adminResendValidationEmail(userId: $userId) {
+      message
+    }
+  }
+`;
